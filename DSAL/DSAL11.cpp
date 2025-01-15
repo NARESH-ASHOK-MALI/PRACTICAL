@@ -1,7 +1,12 @@
 /*
-Name : Gaurav Gorane SC0A10
+Name : Naresh Ashok Mali
 
-Problem Statement 1: Department maintains a student information. The file contains roll number, name, division and address. Allow user to add, delete information of student. Display information of particular student. If record of student does not exist an appropriate message is displayed. If it is, then the system displays the student details.
+Problem Statement 1: Department maintains a student information.
+The file contains roll number, name, division and address. 
+Allow user to add, delete information of student.
+Display information of particular student. 
+If record of student does not exist an appropriate message is displayed. 
+If it is, then the system displays the student details.
 Use sequential file to main the data. 
 */
 

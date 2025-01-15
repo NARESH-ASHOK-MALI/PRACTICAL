@@ -1,66 +1,114 @@
-/*Departments maintains a student information, the file contains roll no, name, div, add, allow user to add delet inf of 
-student display information of particular students if record of student does not exit an appropriate msg displayed if it is then 
-the system displays students detaoils use sequential file to save the data*/
+/* 
+NAME: NARESH ASHOK MALI  SCOD16
+Problem Statement: Consider telephone book Database of n client make use of
+hashtable implemetation to quickly lookup client telephone number make use
+of 2 collision handling technique and compare them using number of
+comparision require to find a set of telephone number.
+*/ 
 #include <iostream>
-#include <fstream>
 #include <string>
 using namespace std;
-class Student{
-    public:
-    int roll;
-    char name[30];
-    char division;
-    char address[50];
-    //function for accepting data
-   
-    void insert (){
-       cout<<"Enter the following:"<<endl;
-       cout<<"Enter roll no:"<<endl;
-       cin>>roll;
-       cout<<"Enter the Name:"<<endl;
-       cin>>name;
-       cout<<"Enter the division:"<<endl;
-       cin>>division;
-       cout<<"Enter the address:"<<endl;
-       cin>>address;
-    }
-    //Function for displaying data
-    void display(){
-        cout<<"Roll No:"<<roll<<endl;
-        cout<<"Name:"<<name<<endl;
-        cout<<"Division:"<<division<<endl;
-        cout<<"Address:"<<address<<endl;
-    }
-    //Function for searching data
-    void search(int r){
-        if(roll==r){
-            cout<<"Roll No:"<<roll<<endl;
-            cout<<"Name:"<<name<<endl;
-            cout<<"Division:"<<division<<endl;
-            cout<<"Address:"<<address<<endl;
-        }
-        else{
-            cout<<"Record not found"<<endl;
+class telephone {
+private:
+    unsigned long long int key;
+    int Hash_address;
+    int x;
+    long long int Telephone[10];
+    string Name[10];
+public:
+    telephone() {
+        for (int i = 0; i < 10; i++) {
+            Telephone[i] = -1;
+            Name[i] = "NOT ASSIGNED";
         }
     }
-    //Function for deleting data
-    void del(int r){
-        if(roll==r){
-            roll=0;
-            name[0]='\0';
-            division='\0';
-            address[0]='\0';
-            cout<<"Record deleted"<<endl;
-        }
-        else{
-            cout<<"Record not found"<<endl;
+    void insert_lp() {
+        cout << "ENTER NUMBER OF CLIENTS YOU WANT IN TELEPHONE BOOK." << endl;
+        cin >> x;
+        for (int count = 0; count < x; count++) {
+            cout << "ENTER TELEPHONE NUMBER." << endl;
+            cin >> key;
+            Hash_address = key % 10;
+            if (Telephone[Hash_address] == -1) {
+                Telephone[Hash_address] = key;
+                cout << "ENTER NAME OF CLIENT." << endl;
+                cin >> Name[Hash_address];
+            } else { // Linear Probing
+                int i = 1;
+                while ((Hash_address + i) < 10 && Telephone[Hash_address + i] != -1) {
+                    i++;
+                }
+                if ((Hash_address + i) < 10) {
+                    Telephone[Hash_address + i] = key;
+                    cout << "ENTER NAME OF CLIENT." << endl;
+                    cin >> Name[Hash_address + i];
+                } else {
+                    cout << "NO SPACE AVAILABLE FOR THIS TELEPHONE NUMBER." << endl;
+                }
+            }
         }
     }
-    
+    void insert_Qp() {
+        cout << "ENTER NUMBER OF CLIENTS YOU WANT IN TELEPHONE BOOK." << endl;
+        cin >> x;
+        for (int count = 0; count < x; count++) {
+            cout << "ENTER TELEPHONE NUMBER." << endl;
+            cin >> key;
+            Hash_address = key % 10;
+            if (Telephone[Hash_address] == -1) {
+                Telephone[Hash_address] = key;
+                cout << "ENTER NAME OF CLIENT." << endl;
+                cin >> Name[Hash_address];
+            } else { // Quadratic Probing
+                int i = 1;
+                Hash_address =Hash_address + (i*i);
+                while (Telephone[Hash_address]<10){
+                    if (Telephone[Hash_address]==-1){
+                        Telephone[Hash_address]=key;
+                        cout<<"ENTER NAME OF CLIENT."<<endl;
+                        cin>>Name[Hash_address];
+                        break;
+                    }else if(Telephone[Hash_address]!=-1){
+                        i++;
+                        Hash_address=Hash_address+(i*i);
+                    }       
+                }  
+            }
+        }
+    }
+    void Display() {
+        for (int i = 0; i < 10; i++) {
+            cout << i+1 << "  >>  " << Name[i] << "  >>  " << Telephone[i] << endl;
+        }
+    }
 };
-int main(){
-    ofstream file;
-    file.open("student.txt");
-    file<<"Roll No. Name Division Address\n";
+int main() {
+    cout<<"Program Executor is: Naresh Ashok Mali Roll No:SCOD16"<<endl;
+    telephone t;
+    int choice;
+    do {
+        cout << "<------------Enter Choice----------->" << endl;
+        cout << "|  1.Insert using Linear Probing    |" << endl;
+        cout << "|  2.Insert using Quadratic Probing |" << endl;
+        cout << "|  3.Display                        |" << endl;
+        cout << "|  4.Exit                           |" << endl;
+        cout << "<----------------------------------->" << endl;
+        cin >> choice;
+        switch (choice) {
+        case 1:
+            t.insert_lp();
+            break;
+        case 2:
+            t.insert_Qp();
+            break;
+        case 3:
+            t.Display();
+            break;
+        case 4:
+            break;
+        default:
+            cout << "INVALID CHOICE. TRY AGAIN." << endl;
+        }
+    } while (choice != 4);
     return 0;
 }
