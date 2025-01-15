@@ -1,102 +1,114 @@
+/* 
+NAME: NARESH ASHOK MALI  SCOD16
+Problem Statement: Consider telephone book Database of n client make use of
+hashtable implemetation to quickly lookup client telephone number make use
+of 2 collision handling technique and compare them using number of
+comparision require to find a set of telephone number.
+*/ 
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
-
-struct Node {
-    char label[10];         
-    int ch_count;           
-    Node* child[10];        
-} *root;                     
-
-class TREE {
+class telephone {
+private:
+    unsigned long long int key;
+    int Hash_address;
+    int x;
+    long long int Telephone[10];
+    string Name[10];
 public:
-    TREE() {
-        root = NULL;
-    }
-
-    void create_tree() {
-        int tbooks, tchapters, i, j, k;
-        root = new Node(); 
-
-        cout << "Enter name of book: ";
-        cin >> root->label;
-
-        cout << "Enter number of chapters in book: ";
-        cin >> tchapters;
-        root->ch_count = tchapters;
-
-        for (i = 0; i < tchapters; i++) { 
-            root->child[i] = new Node; 
-            cout << "Enter Chapter name: ";
-            cin >> root->child[i]->label;
-
-            cout << "Enter number of sections in this Chapter: ";
-            cin >> root->child[i]->ch_count;
-
-        for (j = 0; j < root->child[i]->ch_count; j++) { 
-            root->child[i]->child[j] = new Node;
-            cout << "Enter Section head: ";
-            cin >> root->child[i]->child[j]->label;
-
-            cout << "Enter number of subsections sections in this sections: ";
-            cin >> root->child[i]->child[j]->ch_count;
-
-        for ( k = 0; k < root->child[i]->child[j]->ch_count; k++){
-            root->child[i]->child[j]->child[k] = new Node;
-            cout << "Enter Sub-Section head: ";
-            cin >> root->child[i]->child[j]->child[k]->label;
-        }
-        
+    telephone() {
+        for (int i = 0; i < 10; i++) {
+            Telephone[i] = -1;
+            Name[i] = "NOT ASSIGNED";
         }
     }
-}   
-void display(Node* rl) {
-    if (rl != NULL) {
-        cout << "\nBook Hierarchy---" << endl;
-        cout << "Book title: " << rl->label << endl;
-
-        int tchapters = rl->ch_count;
-        for (int i = 0; i < tchapters; i++) {
-            cout << "Chapter " << i + 1 << ": " << rl->child[i]->label << endl;
-
-            for (int j = 0; j < rl->child[i]->ch_count; j++) {
-                cout << "  Section " << j + 1 << ": " << rl->child[i]->child[j]->label << endl;
-
-                cout << "    Subsections: ";
-                for (int k = 0; k < rl->child[i]->child[j]->ch_count; k++) {
-                    cout << rl->child[i]->child[j]->child[k]->label << " ";
+    void insert_lp() {
+        cout << "ENTER NUMBER OF CLIENTS YOU WANT IN TELEPHONE BOOK." << endl;
+        cin >> x;
+        for (int count = 0; count < x; count++) {
+            cout << "ENTER TELEPHONE NUMBER." << endl;
+            cin >> key;
+            Hash_address = key % 10;
+            if (Telephone[Hash_address] == -1) {
+                Telephone[Hash_address] = key;
+                cout << "ENTER NAME OF CLIENT." << endl;
+                cin >> Name[Hash_address];
+            } else { // Linear Probing
+                int i = 1;
+                while ((Hash_address + i) < 10 && Telephone[Hash_address + i] != -1) {
+                    i++;
                 }
-                cout << endl;
+                if ((Hash_address + i) < 10) {
+                    Telephone[Hash_address + i] = key;
+                    cout << "ENTER NAME OF CLIENT." << endl;
+                    cin >> Name[Hash_address + i];
+                } else {
+                    cout << "NO SPACE AVAILABLE FOR THIS TELEPHONE NUMBER." << endl;
+                }
             }
         }
     }
-}
-
-};
-
-int main() {
-    int choice;
-    TREE BOOK;
-
-    while (1) {
-        cout << "Book Tree Creation" << endl;
-        cout << "1. Create" << endl;
-        cout << "2. Display" << endl;
-        cout << "3. Quit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                BOOK.create_tree();
-                break;
-            case 2:
-                BOOK.display(root);
-                break;
-            case 3:
-                exit(1);
-            default:
-                cout << "Wrong choice" << endl;
+    void insert_Qp() {
+        cout << "ENTER NUMBER OF CLIENTS YOU WANT IN TELEPHONE BOOK." << endl;
+        cin >> x;
+        for (int count = 0; count < x; count++) {
+            cout << "ENTER TELEPHONE NUMBER." << endl;
+            cin >> key;
+            Hash_address = key % 10;
+            if (Telephone[Hash_address] == -1) {
+                Telephone[Hash_address] = key;
+                cout << "ENTER NAME OF CLIENT." << endl;
+                cin >> Name[Hash_address];
+            } else { // Quadratic Probing
+                int i = 1;
+                Hash_address =Hash_address + (i*i);
+                while (Telephone[Hash_address]<10){
+                    if (Telephone[Hash_address]==-1){
+                        Telephone[Hash_address]=key;
+                        cout<<"ENTER NAME OF CLIENT."<<endl;
+                        cin>>Name[Hash_address];
+                        break;
+                    }else if(Telephone[Hash_address]!=-1){
+                        i++;
+                        Hash_address=Hash_address+(i*i);
+                    }       
+                }  
+            }
         }
     }
+    void Display() {
+        for (int i = 0; i < 10; i++) {
+            cout << i+1 << "  >>  " << Name[i] << "  >>  " << Telephone[i] << endl;
+        }
+    }
+};
+int main() {
+    cout<<"Program Executor is: Naresh Ashok Mali Roll No:SCOD16"<<endl;
+    telephone t;
+    int choice;
+    do {
+        cout << "<------------Enter Choice----------->" << endl;
+        cout << "|  1.Insert using Linear Probing    |" << endl;
+        cout << "|  2.Insert using Quadratic Probing |" << endl;
+        cout << "|  3.Display                        |" << endl;
+        cout << "|  4.Exit                           |" << endl;
+        cout << "<----------------------------------->" << endl;
+        cin >> choice;
+        switch (choice) {
+        case 1:
+            t.insert_lp();
+            break;
+        case 2:
+            t.insert_Qp();
+            break;
+        case 3:
+            t.Display();
+            break;
+        case 4:
+            break;
+        default:
+            cout << "INVALID CHOICE. TRY AGAIN." << endl;
+        }
+    } while (choice != 4);
+    return 0;
 }
