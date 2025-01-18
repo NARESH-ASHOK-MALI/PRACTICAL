@@ -1,0 +1,250 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    font-family: 'Merriweather',serif;
+    background-color: white;
+}
+
+header{
+    position: sticky;
+    top: 0;
+}
+
+nav{
+    display: flex;
+    height: 75px;
+    background-color: #04364A;
+    justify-content: space-between;
+    color: #DAFFFB;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    font-size: 2rem;
+}
+
+
+
+nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li{
+    list-style: none;
+    margin: 0 15px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #DAFFFB;
+    font-size: 1.18rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover{
+    color: #176B87;
+    font-size: 1.13rem;
+}
+
+.left{
+    font-size: 1.5rem;
+}
+
+nav .right i{
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #DAFFFB ;
+    display: none;
+}
+
+@media (max-width: 600px) {
+      nav ul{
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        background-color: #04364A;
+        width: 100%;
+        border-top:1px solid #DAFFFB;
+        display:none;
+      }  
+        nav ul li{
+            margin:10px 0px;
+            text-align: center;
+        }
+        nav .right i{
+            display: block;
+        }
+}
+.firstSection{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 150px 20px;
+    background-color: #176b87;
+}
+.firstSection > div{
+    width: 45%;
+    text-align: center;
+}
+.leftSection{
+    font-size: 2.0rem;
+    margin: 20px 0px;
+    color: #DAFFFB;
+}
+
+.rightSection img{
+    width: 100%;
+    max-width:420px;
+    height: 550px;
+    border-radius: 100px;
+}
+.leftSection .btn{
+    padding:12px;
+    background-color: #dafffb;
+    border: 6px solid #43464A;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin:10px 5px;
+}
+.leftSection .button .btn a{
+    text-decoration: none;
+    color: #43464A;
+}
+@media (max-width: 600px) {
+    .firstSection{
+    flex-direction: column;
+    padding: 30px 20px;
+    }
+    .firstSection > div{
+        width: 100%;
+    }
+    .leftSection{
+        font-size: 2rem;
+    }
+    .rightSection img{
+        max-width: 300px;
+    }
+}
+/* About me */
+.secondsection{
+    background-color: #DAFFFB;
+    padding: 40px 20px;
+    color:#04364A;
+    text-align: center;
+}
+.secondsection .Aboutme{
+    font-size: 2rem;
+    margin:20px 0px;
+}
+.secondsection .Aboutme{
+    font-size: 1.3rem;
+    margin: 20px 0px;
+}
+/* thirdsection */
+.thirdsection{
+    text-align: center;
+    color: #DAFFFB;
+    font-size: 2rem;
+    padding: 50px 0px;
+    background-color: #176B87;
+}
+.thirdsection skl{
+
+    text-align: center;
+    font-size: 2rem;
+    color: #DAFFFB;
+    margin: 40px 0px;
+}
+.lowerthird{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 80%;
+    gap : 20px; 
+}
+.lowerthird :hover{
+    position: relative;
+    top: -5px;
+    bottom:5px;
+}
+.lowerthird > div{
+    width: 25%;
+    background-color: #DAFFFB;
+    color: #04364A;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.4rem;
+    border-radius: 30px;
+}
+.lowerthird > div p{
+    font-size: 1.2rem;
+    margin: 55px 0px;
+    color: #04364A;
+}
+@media (max-width: 600px) {
+    .lowerthird{
+        flex-direction: column;
+    }
+    .lowerthird > div{
+        width: 80%;
+        margin: 0px auto;
+    }
+}
+/* fourthsection */
+.fourthsection{
+    text-align: center;
+    color: #DAFFFB;
+    font-size: 2rem;
+    padding: 50px 0px;
+    background-color: #176B87;
+}
+.fourthsection prj{
+
+    text-align: center;
+    font-size: 2rem;
+    color: #DAFFFB;
+    margin: 40px 0px;
+}
+.lowerfourth{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 80%;
+    gap : 20px; 
+}
+.lowerfourth :hover{
+    position: relative;
+    bottom:5px;
+}
+.lowerfourth > div{
+    width: 25%;
+    background-color: #DAFFFB;
+    color: #04364A;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.4rem;
+    border-radius: 30px;
+}
+.lowerfourth > div p{
+    font-size: 1.2rem;
+    margin: 55px 0px;
+    color: #04364A;
+}
+@media (max-width: 600px) {
+    .lowerforth{
+        flex-direction: column;
+    }
+    .lowerforth > div{
+        width: 80%;
+        margin: 0px auto;
+    }
+}

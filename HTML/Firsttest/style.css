@@ -1,0 +1,84 @@
+h1{
+    color: red;
+    font-size: 50px;
+    text-align: center;
+}
+h2{
+    color: blue;
+    font-size: 30px;
+    text-align: center;
+}
+h3{
+    color: green;
+    font-size: 20px;
+    text-align: center;
+}
+h4{
+    color: orange;
+    font-size: 15px;
+    text-align: center;
+}
+h5{
+    color: purple;
+    font-size: 10px;
+    text-align: center;
+}
+.F{
+    color: pink;
+    font-size: 40px;
+    text-align: center;
+}
+.S{
+    color:yellow;
+    font-size: 45px;
+    text-align:center;
+}
+
+body{
+    background-color: black;
+    
+}
+p{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+pre{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+b{
+    color: gray;
+    font-size: 30px;
+    text-align: center;
+}
+box{
+    margin: 20px 30px 50px 40px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+td{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+th{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+table{
+    display: block;
+    margin-left: 50%;
+    margin-right: 75%;
+    width:50%;
+    text-align: center;
+}

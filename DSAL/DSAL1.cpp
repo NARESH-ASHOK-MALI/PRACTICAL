@@ -1,5 +1,5 @@
 /* 
-NAME: NARESH ASHOK MALI  SCOD16
+NAME: Hitesh Khare  SCOD19
 Problem Statement: Consider telephone book Database of n client make use of
 hashtable implemetation to quickly lookup client telephone number make use
 of 2 collision handling technique and compare them using number of
@@ -83,7 +83,7 @@ public:
     }
 };
 int main() {
-    cout<<"Program Executor is: Naresh Ashok Mali Roll No:SCOD16"<<endl;
+    cout<<"Program Executor is: Hitesh Khare Roll No:SCOD19"<<endl;
     telephone t;
     int choice;
     do {
