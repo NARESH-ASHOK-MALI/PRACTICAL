@@ -82,6 +82,10 @@ nav .right i{
         nav .right i{
             display: block;
         }
+        nav ul.active{
+            display:flex;
+        }
+
 }
 .firstSection{
     display:flex;
@@ -110,7 +114,6 @@ nav .right i{
 .leftSection .btn{
     padding:12px;
     background-color: #dafffb;
-    border: 6px solid #43464A;
     font-size: 1.2rem;
     border-radius: 8px;
     margin:10px 5px;
@@ -132,6 +135,7 @@ nav .right i{
     }
     .rightSection img{
         max-width: 300px;
+        max-height: 400px;
     }
 }
 /* About me */
@@ -240,11 +244,84 @@ nav .right i{
     color: #04364A;
 }
 @media (max-width: 600px) {
-    .lowerforth{
+    .lowerfourth{
         flex-direction: column;
     }
-    .lowerforth > div{
+    .lowerfourth > div{
         width: 80%;
         margin: 0px auto;
     }
+}
+/* footer */
+
+footer{
+    background-color: #04364A;
+    color: #DAFFFB;
+}
+.footer-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 63px 5%;
+    justify-content: space-around;
+}
+.logo-text{
+    display:flex;
+    align-items: center;
+}
+.footer-img{
+    width: 100px;
+    height: 30px;
+}
+.text p{
+    font-size:20px;
+    margin-bottom: 5px;
+}
+.solial-links h2,other-links h2{
+    font-size:1.8rem;
+    margin-bottom:10px;
+}
+.social-links li,other-links li{
+    font-size:18px;
+    padding: 10px 10px;
+}
+.social-links li a,other-links li a{
+    text-decoration: none;
+    color: #DAFFFB;
+}
+.social-links ul,other-links ul{
+    padding:10px 0px;
+    list-style: none;
+}
+.social-links a:hover ,other-links a:hover{
+    color: white;
+}
+.other-links h2,other-links h2{
+    font-size:1.4rem;
+    margin-bottom:10px;
+}
+.other-links li,other-links li{
+    font-size:18px;
+    padding: 10px 10px;
+}
+.other-links li a,other-links li a{
+    text-decoration: none;
+    color: #DAFFFB;
+}
+.other-links ul,other-links ul{
+    padding:10px 0px;
+    list-style: none;
+}
+.other-links a:hover ,other-links a:hover{
+    color: white;
+}
+.copyright{
+    text-align: center;
+    padding: 12px;
+    background-color: black;
+}
+.copyright p{
+    text-align: center;
+    padding: 10px 0px;
+    color: #DAFFFB;
 }
