@@ -19,6 +19,7 @@ int result1 = st.sum(n1, n2);
 
 int result2 = QuestionScope.multiply(n1, n2);
 System.out.println(result1);
-	System.out.print(result2);  
+	System.out.print(result2); 
+    sc.close();  
   }
 }

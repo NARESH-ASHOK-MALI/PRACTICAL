@@ -28,6 +28,7 @@ public class W03_P2{
         obj.add(a,b);
         obj.mul(a,b);
         obj.task(a,b);
+        sc.close();
     
     }
 }

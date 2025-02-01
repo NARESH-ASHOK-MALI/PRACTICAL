@@ -15,6 +15,8 @@ public class W02_P5{
         
         // Display book details
         book.displayDetails();
+        sc.close();
+
     }
 }
 // Define the Book class with private attributes for title and author

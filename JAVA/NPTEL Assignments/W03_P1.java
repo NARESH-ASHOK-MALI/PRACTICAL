@@ -12,5 +12,6 @@ public static void main(String[] args) {
     int x;
     x = in.nextInt();
     System.out.print(factorial(x));   
+    in.close();
 }
 }

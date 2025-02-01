@@ -16,5 +16,6 @@ public class W03_P3{
         }
 
         System.out.print(count);
+        sc.close();
     }
 }
