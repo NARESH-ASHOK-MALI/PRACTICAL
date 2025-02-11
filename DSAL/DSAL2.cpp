@@ -35,6 +35,7 @@ public:
                 cin >> Name[Hash_address];
             } else { // Linear Probing
                 int i = 1;
+                bool flag = false;
                 while ((Hash_address + i) < 10 && Telephone[Hash_address + i] != -1) {
                     i++;
                 }
@@ -42,8 +43,18 @@ public:
                     Telephone[Hash_address + i] = key;
                     cout << "ENTER NAME OF CLIENT." << endl;
                     cin >> Name[Hash_address + i];
-                } else {
-                    cout << "NO SPACE AVAILABLE FOR THIS TELEPHONE NUMBER." << endl;
+                    flag = true;
+                }else if (flag == false){
+                        for (int i = 0; i < Hash_address; i++){
+                            if (Telephone[i] == -1){
+                                Telephone[i] = key;
+                                cout << "ENTER NAME OF CLIENT." << endl;
+                                cin >> Name[i];
+                                break;
+                            } else if (i == Hash_address - 1){
+                                cout << "NO SPACE AVAILABLE FOR THIS TELEPHONE NUMBER." << endl;
+                            }
+                        }
                 }
             }
         }
