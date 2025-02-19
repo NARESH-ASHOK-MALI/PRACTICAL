@@ -1,164 +1,129 @@
-%macro print 2
-    mov rax, 1            ; syscall: write
-    mov rdi, 1            ; file descriptor: stdout
-    mov rsi, %1           ; message address
-    mov rdx, %2           ; message length
-    syscall
-%endmacro
-
 section .data
-    prompt_name db 'Enter your name: ', 0
-    prompt_name_len equ $-prompt_name
-
-    welmsg db 10, 'Welcome to count +ve and -ve numbers in an array', 10
-    welmsg_len equ $-welmsg
-
-    pmsg db 10, 'Count of +ve numbers: '
-    pmsg_len equ $-pmsg
-
-    nmsg db 10, 'Count of -ve numbers: '
-    nmsg_len equ $-nmsg
-
-    prompt_elements db 'Enter number of elements (1-255): ', 0
-    prompt_elements_len equ $-prompt_elements
-
-    prompt_number db 'Enter number (signed, in decimal): ', 0
-    prompt_number_len equ $-prompt_number
-
-    newline db 10, 0
+    name db 'User is Naresh Ashok Mali SCOD16', 0xA    ; User name followed by newline
+    name_len equ $ - name    ; Length of the name string
+	msg1 db "Count of Positive numbers: ", 0
+	len1 equ $-msg1
+	msg2 db "Count of Negative numbers: ", 0
+	len2 equ $-msg2
+	prompt db "Enter 7 numbers (separated by spaces): ", 0
+	len_prompt equ $-prompt
+	array db 0, 0, 0, 0, 0, 0, 0  ; Array to store user input
 
 section .bss
-    name_buffer resb 32    ; Reserve 32 bytes for user name
-    dispbuff resb 2        ; Reserve 2 bytes for display buffer
-    pcnt resb 1            ; Positive count storage
-    ncnt resb 1            ; Negative count storage
-    element_count resb 1   ; To store number of elements entered by user
-    user_array resw 256    ; Reserve space for up to 256 elements
+	count resb 2
+	pcount resb 2
+	ncount resb 2
+	totalcount resb 2
+	input resb 50  ; Buffer to store user input
 
 section .text
-    global _start
+	global _start
+
+; Macro to print a message
+%macro print 2
+	mov rax, 1      	; syscall: write
+	mov rdi, 1      	; file descriptor: stdout
+	mov rsi, %1     	; message to print
+	mov rdx, %2     	; message length
+	syscall
+%endmacro
 
 _start:
-    ; Prompt user for name
-    print prompt_name, prompt_name_len
+    ; Print user name
+    mov eax, 4          ; System call number for write (sys_write)
+    mov ebx, 1          ; File descriptor 1 (stdout)
+    mov ecx, name       ; Pointer to the name string
+    mov edx, name_len   ; Length of the name string
+    int 0x80            ; Call the kernel
+	; Print the prompt message
+	print prompt, len_prompt
 
-    ; Read user's name
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, name_buffer
-    mov rdx, 32
-    syscall
+	; Read input from the user
+	mov rax, 0      	; syscall: read
+	mov rdi, 0      	; file descriptor: stdin
+	mov rsi, input  	; buffer to store input
+	mov rdx, 50     	; number of bytes to read
+	syscall
 
-    ; Remove newline from the input
-    mov rdi, name_buffer
-strip_newline:
-    cmp byte [rdi], 0Ah        ; Check for newline character
-    je remove_newline
-    inc rdi
-    loop strip_newline
+	; Parse the input and store in the array
+	mov rsi, input  	; Point to the input buffer
+	mov rdi, array  	; Point to the array
+	mov byte [count], 7 ; Number of elements to read
 
-remove_newline:
-    mov byte [rdi], 0          ; Replace newline with null terminator
+parse_input:
+	xor rax, rax    	; Clear RAX
+	xor rbx, rbx    	; Clear RBX
 
-    ; Print welcome message
-    print welmsg, welmsg_len
-
-    ; Prompt for number of elements
-    print prompt_elements, prompt_elements_len
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, element_count
-    mov rdx, 1
-    syscall
-
-    ; Convert ASCII to binary (assuming single-digit input)
-    sub byte [element_count], 48
-
-    ; Initialize counters
-    xor byte [pcnt], 0
-    xor byte [ncnt], 0
-
-    ; Loop to read and store array elements
-    mov cl, [element_count]   ; Load number of elements into CL
-    mov rsi, user_array       ; Point RSI to user_array
-
-read_elements:
-    print prompt_number, prompt_number_len
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, name_buffer      ; Use name buffer temporarily for input
-    mov rdx, 10               ; Read up to 10 characters (decimal input)
-    syscall
-
-    ; Convert ASCII decimal input to binary (basic implementation)
-    mov rdi, name_buffer      ; Pointer to input buffer
-    xor eax, eax              ; Clear EAX for result
-    xor ebx, ebx              ; Clear EBX for sign
-
-parse_digit:
-    mov bl, byte [rdi]
-    cmp bl, 0Ah               ; Check for newline
-    je done_parsing
-    cmp bl, 45                ; Check for '-' (negative sign)
-    jne valid_digit
-    mov ebx, 1                ; Set sign flag
-    inc rdi
-    jmp parse_digit
-
-valid_digit:
-    sub bl, 48                ; Convert ASCII to binary
-    imul eax, eax, 10         ; Multiply result by 10
-    add eax, ebx              ; Add current digit
-    inc rdi
-    jmp parse_digit
-
-done_parsing:
-    test ebx, ebx             ; Check if the number is negative
-    jz store_number
-    neg eax                   ; Make it negative
+next_char:
+	lodsb           	; Load next byte from input buffer
+	cmp al, ' '     	; Check if it's a space
+	je store_number 	; If space, store the number
+	cmp al, 0x0A    	; Check if it's a newline (end of input)
+	je store_number 	; If newline, store the number
+	sub al, '0'     	; Convert ASCII to integer
+	imul rbx, 10    	; Multiply current number by 10
+	add rbx, rax    	; Add the new digit
+	jmp next_char   	; Continue to next character
 
 store_number:
-    mov [rsi], ax             ; Store the input in user_array
-    add rsi, 2                ; Move to the next element
-    dec cl                    ; Decrement element counter
-    jnz read_elements         ; Continue reading elements
+	mov [rdi], bl   	; Store the number in the array
+	inc rdi         	; Move to the next position in the array
+	dec byte [count]	; Decrement the count
+	jnz parse_input 	; If count is not zero, continue parsing
 
-    ; Print positive count
-    print pmsg, pmsg_len
-    mov bl, [pcnt]
-    call disp8num
+	; Initialize counters
+	mov byte [count], 7
+	mov byte [pcount], 0
+	mov byte [ncount], 0
 
-    ; Print negative count
-    print nmsg, nmsg_len
-    mov bl, [ncnt]
-    call disp8num
+	; Point to the array
+	mov rsi, array
 
-    ; Print new line
-    print newline, 1
+Up:
+	mov al, [rsi]   	; Load the current number
+	test al, al     	; Check if the number is negative
+	js neg          	; If negative, jump to neg
+	inc byte [pcount]   ; Increment positive count
+	jmp Down        	; Jump to Down
 
-exit:
-    ; Exit the program
-    mov rax, 60
-    mov rdi, 0
-    syscall
+neg:
+	inc byte [ncount]   ; Increment negative count
 
-disp8num:
-    mov rcx, 2
-    mov rdi, dispbuff
+Down:
+	inc rsi         	; Move to the next number in the array
+	dec byte [count]	; Decrement the count
+	jnz Up          	; If count is not zero, continue
 
-dup1:
-    rol bl, 4
-    mov al, bl
-    and al, 0Fh
-    cmp al, 09
-    jbe dskip
-    add al, 07h
+	; Print the count of positive numbers
+	print msg1, len1
+	mov bh, [pcount]
+	call disp
 
-dskip:
-    add al, 30h
-    mov [rdi], al
-    inc rdi
-    loop dup1
+	; Print the count of negative numbers
+	print msg2, len2
+	mov bh, [ncount]
+	call disp
 
-    print dispbuff, 2
-    ret
+	; Exit the program
+	mov rax, 60     	; syscall: exit
+	mov rdi, 0      	; exit code 0
+	syscall
+
+disp:
+	mov byte [count], 2 ; Number of digits to display
+
+loop:
+	rol bh, 4       	; Rotate left by 4 bits
+	mov al, bh      	; Move the rotated value to AL
+	and al, 0x0F    	; Mask the lower 4 bits
+	cmp al, 9       	; Compare with 9
+	jbe l1          	; If below or equal, jump to l1
+	add al, 7       	; Adjust for ASCII (A-F)
+
+l1:
+	add al, '0'     	; Convert to ASCII
+	mov [totalcount], al ; Store the ASCII character
+	print totalcount, 1 ; Print the character
+	dec byte [count]	; Decrement the count
+	jnz loop        	; If count is not zero, continue
+	Ret
