@@ -11,6 +11,13 @@ interface Number {
 		//# complete the function
 //}
 //}
+class A implements Number {
+    // Define a method to find the square of a number
+    public int findSqr(int i) {
+        return i * i;  // Compute and return the square
+    }
+}
+
 public class W05_P1{ 
     public static void main (String[] args){ 
       A a = new A();   //Create an object of class A
@@ -18,5 +25,6 @@ public class W05_P1{
        Scanner sc = new Scanner(System.in);  
        int i = sc.nextInt();
        System.out.print(a.findSqr(i)); 
+       sc.close();
 } 
 }
