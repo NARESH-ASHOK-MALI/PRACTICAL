@@ -30,6 +30,7 @@ public class DSAL8{
 
     }
     public static void main (String[] args) {
+        System.out.println("NAME : NARESH ASHOK MALI SCOD16 ");
         Scanner sc = new Scanner(System.in);
         out.print("Enter size of the array:- ");
         int n = sc.nextInt();
