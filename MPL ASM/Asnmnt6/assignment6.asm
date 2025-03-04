@@ -1,5 +1,5 @@
 section .data
-    name db 'User is Naresh Ashok Mali SCOD16', 0xA
+    name db 'User is Naresh Ashok Mali SCOD16', 0xA 
     name_len equ $ - name
 
     menu_msg db "1. HEX to BCD", 0xA, "2. BCD to HEX", 0xA, "3. Exit", 0xA
@@ -8,10 +8,10 @@ section .data
     prompt_choice db "Enter your choice: ", 0
     choice_len equ $ - prompt_choice
 
-    prompt_hex db "Enter HEX number: ", 0
+    prompt_hex db "Enter HEX number (max 4 digits): ", 0
     hex_len equ $ - prompt_hex
 
-    prompt_bcd db "Enter BCD number: ", 0
+    prompt_bcd db "Enter BCD number (max 5 digits): ", 0
     bcd_len equ $ - prompt_bcd
 
     result_hex db "Equivalent HEX number: ", 0
@@ -24,17 +24,16 @@ section .data
     newline_len equ $ - newline
 
 section .bss
-    choice resb 4    ; Increased buffer size for safety
-    num resb 10      ; Buffer for input number
-    result resb 10   ; Buffer for result storage
-    digitcount resb 1
-    ans resb 10
+    choice resb 2    
+    num resb 6      
+    result resb 10   
+    ans resb 5       
+    temp resb 2      
 
 section .text
 global _start
 
 _start:
-    ; Display user name
     mov rax, 1
     mov rdi, 1
     mov rsi, name
@@ -42,28 +41,28 @@ _start:
     syscall
 
 menu:
-    ; Print menu
     mov rax, 1
     mov rdi, 1
     mov rsi, menu_msg
     mov rdx, menu_len
     syscall
 
-    ; Ask for user choice
     mov rax, 1
     mov rdi, 1
     mov rsi, prompt_choice
     mov rdx, choice_len
     syscall
 
-    ; Read choice
     mov rax, 0
     mov rdi, 0
     mov rsi, choice
-    mov rdx, 4      ; Allow space for newline
+    mov rdx, 2
     syscall
 
-    ; Process choice
+    mov al, [choice]
+    cmp al, 0xA
+    je menu
+
     cmp byte [choice], '1'
     je case1
     cmp byte [choice], '2'
@@ -71,39 +70,36 @@ menu:
     cmp byte [choice], '3'
     je case3
 
+    jmp menu
+
 case3:
-    mov rax, 60    ; Exit system call
+    mov rax, 60    
     mov rdi, 0
     syscall
 
 case1:
-    ; Prompt for HEX number
     mov rax, 1
     mov rdi, 1
     mov rsi, prompt_hex
     mov rdx, hex_len
     syscall
 
-    ; Read HEX input
     mov rax, 0
     mov rdi, 0
     mov rsi, num
-    mov rdx, 6     ; Increased buffer size
+    mov rdx, 5     
     syscall
 
     call hex_to_bcd
-
     jmp menu
 
 case2:
-    ; Prompt for BCD number
     mov rax, 1
     mov rdi, 1
     mov rsi, prompt_bcd
     mov rdx, bcd_len
     syscall
 
-    ; Read BCD input
     mov rax, 0
     mov rdi, 0
     mov rsi, num
@@ -111,43 +107,81 @@ case2:
     syscall
 
     call bcd_to_hex
-
     jmp menu
 
 hex_to_bcd:
-    mov ax, bx
+    call hex_to_int
     mov rbx, 10
+    xor rcx, rcx   
+
+    mov rdi, result
+    mov byte [rdi], 0
+    add rdi, 4  
+
 back:
     xor rdx, rdx
     div rbx
-    push dx
-    inc byte[digitcount]
+    add dl, '0'
+    mov [rdi], dl
+    dec rdi
+    inc rcx
     cmp rax, 0h
     jne back
 
-print:
-    pop dx
-    add dl, 30h   
-    mov [result], dl
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, result_bcd
+    mov rdx, result_bcd_len
+    syscall
+
     mov rax, 1
     mov rdi, 1
     mov rsi, result
-    mov rdx, 1
+    mov rdx, 5
     syscall
-    dec byte[digitcount]
-    jnz print
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, newline
+    mov rdx, newline_len
+    syscall
+
+    ret
+
+hex_to_int:
+    xor rax, rax
+    mov rsi, num
+parse_hex:
+    movzx rcx, byte [rsi]
+    cmp rcx, 0
+    je done_parse
+    cmp rcx, 0xA
+    je done_parse
+    shl rax, 4 
+    cmp rcx, '9'
+    jbe is_digit
+    sub rcx, 'A' - 10
+    jmp store_value
+is_digit:
+    sub rcx, '0'
+store_value:
+    or rax, rcx
+    inc rsi
+    jmp parse_hex
+done_parse:
     ret
 
 bcd_to_hex:
     xor rax, rax
     mov rbx, 10
-    mov rcx, 05
+    mov rcx, 5
+    mov rsi, num
 up2: 
     xor rdx, rdx
-    mul ebx
+    mul rbx
     xor rdx, rdx
     mov dl, [rsi]
-    sub dl, 30H
+    sub dl, '0'
     add rax, rdx
     inc rsi
     dec rcx
@@ -155,7 +189,6 @@ up2:
 
     mov [result], ax
 
-    ; Print Equivalent HEX Number
     mov rax, 1
     mov rdi, 1
     mov rsi, result_hex
@@ -180,7 +213,7 @@ count:
     add dl, 07H
 
 skip2:
-    add dl, 30H
+    add dl, '0'
     mov [rsi], dl
     dec rsi
     dec rcx
@@ -191,4 +224,11 @@ skip2:
     mov rsi, ans
     mov rdx, 4
     syscall
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, newline
+    mov rdx, newline_len
+    syscall
+
     ret
