@@ -1,12 +1,13 @@
 /*
-Name : NARESH ASHOK MALI
+Name : Naresh Ashok Mali SCOD16
 Problem Statement : Implement the Heap/Shell sort algorithm implemented in 
 Java demonstrating    heap/shell data  structure    with modularity     of 
 programming language
 */
 
 import java.util.*;
-import static java.lang.System.out;
+// package com.ai.astar;
+
 
 public class DSAL8{
     static void heapify(int arr[], int n, int ind) {
@@ -30,9 +31,8 @@ public class DSAL8{
 
     }
     public static void main (String[] args) {
-        System.out.println("NAME : NARESH ASHOK MALI SCOD16 ");
         Scanner sc = new Scanner(System.in);
-        out.print("Enter size of the array:- ");
+        System.out.print("Enter size of the array:- ");
         int n = sc.nextInt();
         System.out.println(" ");
         int[] arr = new int[n];
