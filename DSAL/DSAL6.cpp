@@ -16,6 +16,7 @@ class tree{
     tree(){
         root=nullptr;
     }
+    
     Node* createtree(int key){
         root=new Node(key);
         return root;
