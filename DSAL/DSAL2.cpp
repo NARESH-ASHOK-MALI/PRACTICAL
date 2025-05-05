@@ -1,5 +1,5 @@
 /* 
-NAME: Naresh Ashok Mali SCOD16
+NAME: Naresh Ashok Mali 
 Problem Statement: Consider telephone book Database of n client make use of
 hashtable implemetation to quickly lookup client telephone number make use
 of 2 collision handling technique and compare them using number of
