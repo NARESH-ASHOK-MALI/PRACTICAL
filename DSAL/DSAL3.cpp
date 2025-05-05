@@ -1,5 +1,5 @@
 /*
-Name : Naresh Ashok Mali
+Name : Naresh Ashok Mali SCOD16
 
 Problem Statement 1: Department maintains a student information.
 The file contains roll number, name, division, and address. 
