@@ -7,8 +7,6 @@ programming language
 
 import java.util.*;
 // package com.ai.astar;
-
-
 public class DSAL8{
     static void heapify(int arr[], int n, int ind) {
 
