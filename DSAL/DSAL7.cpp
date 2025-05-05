@@ -6,7 +6,6 @@
 using namespace std;
 
 const int MAX = 50;
-
 class Employee {
 public:
     int empid;
