@@ -9,7 +9,7 @@ public class W01_P5{
             }
             System.out.println();
         }
-
+        
         // Print increasing part of the pattern
         for (int i = 2; i <= n; i++) {
             for (int j = 1; j <= i; j++) {

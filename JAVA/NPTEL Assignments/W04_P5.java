@@ -14,7 +14,6 @@ class ShapeG implements ShapeY {
     public void display1() {
         System.out.println("Circle: " + ShapeX.base); // Refer to ShapeX base
     }
-
     
     public void display2() {
         System.out.println("Circle: " + ShapeY.base); // Use instance variable base
