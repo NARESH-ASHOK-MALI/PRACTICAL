@@ -1,9 +1,5 @@
-package Pass_1;
-
 import java.io.*;
 import java.util.*;
-
-
 
 class Pass1 {
     public static void main(String args[]) throws NullPointerException, FileNotFoundException {
@@ -15,12 +11,11 @@ class Pass1 {
         Obj[] literal_table = new Obj[10];
         Obj[] symb_table = new Obj[10];
         Obj[] optab = new Obj[60];
-        Pooltable[] pooltab = new Pooltable[5];
         String line;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("sample.txt"));
-            BufferedWriter bw = new BufferedWriter(new FileWriter("Output.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt"));
             Boolean start = false;
             Boolean end = false, fill_addr = false, ltorg = false;
             int total_symb = 0, total_ltr = 0, optab_cnt = 0, pooltab_cnt = 0, loc = 0, temp, pos;
@@ -28,7 +23,7 @@ class Pass1 {
             while ((line = br.readLine()) != null && !end) {
                 String tokens[] = line.split(" ", 4);
                 if (loc != 0 && !ltorg) {
-                    if (f == -1) {
+                    if (f == 1) {
                         ltorg = false;
                         loc = loc + temp1 - 1;
                         bw.write("\n" + String.valueOf(loc));
@@ -49,83 +44,65 @@ class Pass1 {
                         start = false;
                     }
                     switch (tokens[k]) {
-                        case "start":
-                            start = true;
+                        case "start":start = true;
                             pos = 1;
-                            bw.write("\t(AD, " + pos + ")");
+                            bw.write("\t(AD,"+ pos +")");
                             break;
-                        case "end":
-                            end = true;
+                        case "end": end = true;
                             pos = 2;
-                            bw.write("\t(AD, " + pos + ")\n");
+                            bw.write("\t(AD," + pos +")\n");
                             for (temp = 0; temp < total_ltr; temp++) {
                                 if (literal_table[temp].addr == 0) {
                                     literal_table[temp].addr = loc - 1;
-                                    bw.write("\t(DL, 2) \t (C, " + literal_table[temp].name + ")" + "\n" + loc++);
+                                    bw.write("\t(DL,2) \t (C," + literal_table[temp].name +")"+"\n" + loc++);
                                 }
                             }
-                            if (pooltab_cnt == 0) {
-                                pooltab[pooltab_cnt++] = new Pooltable(0, temp);
-                            } else {
-                                pooltab[pooltab_cnt] = new Pooltable(pooltab[pooltab_cnt - 1].first + pooltab[pooltab_cnt - 1].total_literals, total_ltr);
-                                pooltab_cnt++;
-                            }
                             break;
-                        case "origin":
-                            pos = 3;
-                            bw.write("\t (AD, " + pos + ")");
+                        case "origin": pos = 3;
+                            bw.write("\t (AD," + pos +")");
                             pos = search(tokens[++k], symb_table, total_symb);
                             k++;
-                            bw.write("\t(C, " + (symb_table[pos].addr) + ")");
+                            bw.write("\t(C," +(symb_table[pos].addr) +")");
                             loc = symb_table[pos].addr;
                             break;
-                        case "ltorg":
-                            ltorg = true;
+                        case "ltorg": ltorg = true;
                             pos = 5;
-                            bw.write("\t(AD, " + pos + ")\n");
-                            for (temp = 0; temp < total_ltr; temp++) {
+                            bw.write("\t(AD," + pos +")\n");
+                            for (temp = 0; temp < total_ltr; temp++) 
                                 if (literal_table[temp].addr == 0) {
                                     literal_table[temp].addr = loc - 1;
-                                    bw.write("\t(DL, 2) \t (C, " + literal_table[temp].name + ")" + "\n" + loc++);
+                                    bw.write("\t(DL,2) \t (C," + literal_table[temp].name +")" +"\n" +loc++);
                                 }
-                            }
-                            if (pooltab_cnt == 0) {
-                                pooltab[pooltab_cnt++] = new Pooltable(0, temp);
-                            } else {
-                                pooltab[pooltab_cnt] = new Pooltable(pooltab[pooltab_cnt - 1].first + pooltab[pooltab_cnt - 1].total_literals, total_ltr - pooltab[pooltab_cnt - 1].first - 1);
-                                pooltab_cnt++;
-                            }
                             break;
-                        case "equ":
-                            pos = 4;
-                            bw.write("\t(AD, " + pos + ")");
+                        case "equ": pos = 4;
+                            bw.write("\t(AD," + pos +")");
                             String prev_token = tokens[k - 1];
-                            int posi;
+                            int pos1=search(prev_token,symb_table,total_symb);
                             pos = search(tokens[++k], symb_table, total_symb);
                             symb_table[pos].addr = symb_table[pos].addr;
                             search(prev_token, symb_table, total_symb);
-                            bw.write("\t(S, " + (pos + 1) + ")");
+                            bw.write("\t(S," + (pos + 1) + ")");
                             break;
                     }
                     if (pos == -1) {
                         pos = search(tokens[k], IS);
                         if (pos != -1) {
-                            bw.write("\t(IS," + (pos) + ")");
+                            bw.write("\t(IS," + (pos) +")");
                             optab[optab_cnt++] = new Obj(tokens[k], pos);
                         } else {
                             pos = search(tokens[k], DL); // DC/DS
                             if (pos != -1) {
                                 if (pos == 0) {
                                     f = 1;
+                                    bw.write("\t(DL," + (pos + 1) + ")");
+                                    optab[optab_cnt++] = new Obj(tokens[k], pos);
+                                    fill_addr = true;
                                 }
-                                bw.write("\t(DL," + (pos + 1) + ")");
-                                optab[optab_cnt++] = new Obj(tokens[k], pos);
-                                fill_addr = true;
                             } else if (tokens[k].matches("[a-zA-Z]+:")) { //label
                                 pos = search(tokens[k], symb_table, total_symb);
                                 if (pos == -1) {
                                     symb_table[total_symb++] = new Obj(tokens[k].substring(0, tokens[k].length() - 1), loc - 1);
-                                    bw.write("\t(S, " + total_symb + ")");
+                                    bw.write("\t(S," + total_symb + ")");
                                     pos = total_symb;
                                 }
                             }
@@ -134,16 +111,18 @@ class Pass1 {
                     if (pos == -1) {
                         pos = search(tokens[k], REG);
                         if (pos != -1) {
-                            bw.write("\t(RG, " + (pos + 1) + ")"); //register
+                            bw.write("\t(RG," + (pos + 1) +")"); //register
                         } else {
                             if (tokens[k].matches("='(\\d+)'")) { //literal
                                 String s = tokens[k].substring(2, 3);
                                 literal_table[total_ltr++] = new Obj(s, 0);
-                                bw.write("\t(L, " + total_ltr + ")");
-                            } else if (tokens[k].matches("\\d+") || tokens[k].matches("\\d+H") || tokens[k].matches("\\d+h") || tokens[k].matches("\\d+D") || tokens[k].matches("\\d+d")) { //constant
-                                bw.write("\t(C, " + tokens[k] + ")");
+                                bw.write("\t(L," + total_ltr + ")");
+                            } 
+                            else if (tokens[k].matches("\\d+") || tokens[k].matches("\\d+H") || tokens[k].matches("\\d+h") || tokens[k].matches("\\d+D") || tokens[k].matches("\\d+d")) { //constant
+                                bw.write("\t(C," + tokens[k] + ")");
                                 temp1 = Integer.parseInt(tokens[k]);
-                            } else {
+                            } 
+                            else {
                                 pos = search(tokens[k], symb_table, total_symb);
                                 if (fill_addr && pos != -1) {
                                     symb_table[pos].addr = loc - 1;
@@ -166,14 +145,6 @@ class Pass1 {
                 System.out.println(symb_table[i].name + "\t" + symb_table[i].addr);
             }
             
-            pooltab[pooltab_cnt] = new Pooltable(pooltab[pooltab_cnt - 1].first + pooltab[pooltab_cnt - 1].total_literals, total_ltr - pooltab[pooltab_cnt - 1].first - 2);
-            pooltab_cnt++;
-            
-            System.out.println("\n*POOL TABLE*");
-            System.out.println("\nPOOL\tTOTAL LITERALS");
-            for (int i = 0; i < pooltab_cnt; i++) {
-                System.out.println(pooltab[i].first + "\t" + pooltab[i].total_literals);
-            }
             
             System.out.println("\n*LITERAL TABLE*");
             System.out.println("\nIndex\tLITERAL\tADDRESS");
@@ -227,26 +198,5 @@ class Pass1 {
             }
         }
         return -1;
-    }
-}
-
-
-class Obj {
-    String name;
-    int addr;
-
-    Obj(String name, int addr) {
-        this.name = name;
-        this.addr = addr;
-    }
-}
-
-class Pooltable {
-    int first;
-    int total_literals;
-
-    Pooltable(int first, int total_literals) {
-        this.first = first;
-        this.total_literals = total_literals;
     }
 }
