@@ -47,14 +47,13 @@ public class Pass2 {
         boolean symbol_error = false, undef_mnemonic = false;
         System.out.println("\n****************OUTPUT FILE****************\n\n");
 
-        lab:
-        while ((line = br2.readLine()) != null) {
+        lab: while ((line = br2.readLine()) != null)
+         {
             String[] token_list = line.split("\\s+",5);
             symbol_error = false;
             undef_mnemonic = false;
             
-            labl:
-            for (String token : token_list) {
+            lab1: for (String token : token_list) {
                 if (token.isEmpty()) {
                     continue; 
                 }
@@ -80,24 +79,25 @@ switch (letters.toUpperCase()) {
         }
         break;
     case "L":
-        if (num > 0 && num <= total_ltr) {
+            if (num > 0 && num <= total_ltr)
+             {
             System.out.print("\t" + literal_table[num - 1].addr);
-        } else {
+             } else {
              System.out.print("\t---");
              symbol_error = true;
         }
         break;
     case "AD":
         System.out.print("\n");
-        continue labl;
+        continue lab;
     case "DL":
         switch (num) {
             case 1:
                 System.out.print("\n");
-                continue labl;
+                continue lab;
             case 2:
                 System.out.print("\t 00 \t 00");
-                break;
+                continue lab1;
         }
         break;
     case "C":

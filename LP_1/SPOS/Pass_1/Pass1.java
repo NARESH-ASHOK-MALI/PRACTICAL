@@ -79,7 +79,7 @@ class Pass1 {
                             String prev_token = tokens[k - 1];
                             int pos1=search(prev_token,symb_table,total_symb);
                             pos = search(tokens[++k], symb_table, total_symb);
-                            symb_table[pos].addr = symb_table[pos].addr;
+                            symb_table[pos1].addr = symb_table[pos].addr;
                             search(prev_token, symb_table, total_symb);
                             bw.write("\t(S," + (pos + 1) + ")");
                             break;
@@ -92,12 +92,14 @@ class Pass1 {
                         } else {
                             pos = search(tokens[k], DL); // DC/DS
                             if (pos != -1) {
-                                if (pos == 0) {
+                                if (pos == 0){
                                     f = 1;
+                                }
+                                    
                                     bw.write("\t(DL," + (pos + 1) + ")");
                                     optab[optab_cnt++] = new Obj(tokens[k], pos);
                                     fill_addr = true;
-                                }
+                                
                             } else if (tokens[k].matches("[a-zA-Z]+:")) { //label
                                 pos = search(tokens[k], symb_table, total_symb);
                                 if (pos == -1) {
