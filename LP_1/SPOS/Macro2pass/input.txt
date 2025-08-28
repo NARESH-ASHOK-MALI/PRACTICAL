@@ -1,0 +1,20 @@
+macro
+incr &x,&y,&reg ="areg"
+mover &reg,&x
+add &reg1,&y
+movem &reg,&x
+mend
+macro
+decr &a,&b,&reg ="breg"
+mover &reg,&a
+sub &reg,&b
+movem &reg,&a
+mend
+start 100
+read n1
+read n2
+incr n1,n2
+decr n1,n2
+n1,ds1
+n2,ds2
+end

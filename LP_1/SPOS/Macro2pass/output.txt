@@ -1,0 +1,12 @@
+start 100
+read n1
+read n2
+	mover	n1	
+	add	n2	
+	movem	n1	
+	mover	
+	sub	
+	movem	
+n1,ds1
+n2,ds2
+end
