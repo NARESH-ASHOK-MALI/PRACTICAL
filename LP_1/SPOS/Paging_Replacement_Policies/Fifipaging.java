@@ -42,7 +42,7 @@ public class Fifipaging {
             fault++;
             pointer++;
             if(pointer == frames)
-            pointer = 0;
+              pointer = 0;
           }
 
             for(int j = 0; j < frames; j++)
