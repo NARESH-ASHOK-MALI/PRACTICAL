@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Fifipaging {
+public class Fifopaging {
     public static void main(String[] args) throws IOException 
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

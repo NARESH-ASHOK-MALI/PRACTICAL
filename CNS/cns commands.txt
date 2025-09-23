@@ -1,0 +1,6 @@
+ipconfig : Windows command-line utility used to view and manage IP configuration settings of your computer’s network interfaces.
+ping google.com :Used to check connection with Google.com . It works by sending small ICMP (Internet Control Message Protocol) packets and waiting for replies.
+nslookup google.com: to cjeck ip address for google.com
+check your network connection:netstat
+tracing root through website:tracert google.com
+to check internet connectivity:ping
