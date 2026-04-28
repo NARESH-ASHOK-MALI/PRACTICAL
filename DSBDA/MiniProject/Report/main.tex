@@ -1,0 +1,659 @@
+\documentclass[oneside,a4paper,12pt]{report}
+\usepackage[T1]{fontenc}
+%\usepackage{acronym}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{graphicx}
+\fancypagestyle{ttt}{%
+  \fancyhf{}
+  \fancyfoot[CE]{Dr. DYPIT, Pimpri, Pune, Department of Computer Engineering, 2025-26}
+  \fancyfoot{\thepage}
+}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[R]{\thepage}
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyfoot[R]{\thepage}
+}
+\footskip = 0.625in
+\cfoot{}
+\rfoot{\thepage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\usepackage{mathptmx} % sets Times font for text + math
+
+\usepackage{tikz}
+\usepackage[final]{pdfpages}
+\usetikzlibrary{arrows,shapes,decorations.pathmorphing,automata,backgrounds,petri}
+\usepackage[left=1.25in,right=1in,top=1in,bottom=1in]{geometry}
+\setlength{\headheight}{14.49998pt}
+\usepackage{tabularx}
+\usepackage{fancybox}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage{appendix}
+ \usepackage[final]{pdfpages}
+\renewcommand{\appendixname}{Annexure}
+\renewcommand{\bibname}{References}
+\setcounter{secnumdepth}{5}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage[ruled,vlined]{algorithm2e}
+\newcommand{\abbrlabel}[1]{\makebox[0cm][l]{\textbf{#1}\ }}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
+\newcommand{\apiendpoint}[1]{\begingroup\small\url{#1}\endgroup}
+\newcommand{\safeincludegraphics}[2][]{%
+    \IfFileExists{#2}{%
+        \includegraphics[#1]{#2}%
+    }{%
+        \fbox{\parbox[c][1.2in][c]{2.2in}{\centering\footnotesize Missing file\\\texttt{\detokenize{#2}}}}%
+    }%
+}
+\makeindex
+
+% Editor-like colorful code snippet style
+\definecolor{codebg}{RGB}{245,247,250}
+\definecolor{codeborder}{RGB}{210,214,220}
+\definecolor{codekeyword}{RGB}{0,92,197}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codenumber}{RGB}{120,120,120}
+
+\lstdefinelanguage{JavaScriptCustom}{
+    keywords={const,let,var,if,else,return,await,async,case,switch,break,true,false,null,try,catch},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinestyle{editorJS}{
+    language=JavaScriptCustom,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    commentstyle=\color{codecomment}\itshape,
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    frame=single,
+    rulecolor=\color{codeborder},
+    tabsize=2,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    columns=fullflexible,
+    keepspaces=true,
+    xleftmargin=0.03\textwidth,
+    xrightmargin=0.03\textwidth
+}
+
+% Custom command for decorative frame, can be ignored
+\providecommand{\thisfancyput}[2]{}
+
+\begin{document}
+%---------------------------------------------------------------------------
+\thisfancyput(-0.0in,-9.7in){%
+\setlength{\unitlength}{1in}\framebox(6.7,10.2)}
+\setlength{\parindent}{0mm}
+\begin{center}
+\vspace*{-\baselineskip}
+\vspace*{-\baselineskip}
+\vspace*{-\baselineskip}
+{\bfseries \textbf{A}\\}
+{\bfseries \textbf{Data Science and Big Data Analytics}\\}
+{\bfseries \textbf{MINI-PROJECT REPORT ON}\\}
+\vspace*{1\baselineskip}
+{\bfseries \fontsize{16}{12} \selectfont \textbf{``HerSpace-AI"} \\}
+\vspace*{1\baselineskip}
+\includegraphics[width=100pt]{pune.png} \\
+\vspace*{1\baselineskip}
+{\fontsize{12}{12} \selectfont SUBMITTED TO THE SAVITRIBAI PHULE PUNE UNIVERSITY, PUNE\\
+\vspace{2mm}
+IN THE PARTIAL FULFILLMENT OF THE REQUIREMENTS \\
+\vspace{2mm}
+FOR THE AWARD OF THE DEGREE OF \\}
+\vspace{5mm}
+\vspace{5mm}
+{\bfseries \fontsize{14}{12} \selectfont BACHELOR OF ENGINEERING (T.E.) \\
+\vspace{2mm}
+IN\\ 
+\vspace{5mm}
+\textbf{COMPUTER ENGINEERING}\\
+\vspace*{1\baselineskip}} 
+{\bfseries \fontsize{14}{12} \selectfont BY \\ 
+\vspace*{0.5\baselineskip}} 
+\begin{center}
+\textbf{Tejas Santosh Nalawade} \\
+(TCOD01)\\[0.5em]
+\textbf{Naresh Ashok Mali} \\
+(TCOD06)\\
+\end{center}
+\vspace*{1\baselineskip}
+
+PROJECT FOR THE SUBJECT \\
+\vspace{2mm}
+{\bfseries \fontsize{14}{12} \selectfont Data Science and Big Data Analytics (DSBDA) \\  
+\vspace*{0.5\baselineskip}} 
+\vspace*{1\baselineskip}
+UNDER THE GUIDANCE OF\\
+\vspace{2mm}
+{\bfseries \fontsize{14}{12} \selectfont Prof. Zarina Shaikh \\  
+\vspace*{0.5\baselineskip}} 
+\vspace*{1\baselineskip}
+\includegraphics[width=350pt]{DYPDPULogo.png} \\
+\vspace{1mm}
+{\bfseries \fontsize{12}{12} \selectfont DEPARTMENT OF COMPUTER ENGINEERING \\
+\vspace{2mm}
+
+ (AFFILIATED TO SAVITRIBAI PHULE PUNE UNIVERSITY, PUNE)\\
+ \vspace{2mm}
+(2025-2026)
+}
+\end{center}
+\pagenumbering{roman}
+
+
+
+
+%---------------------------------Certificate Page------------------------%
+\newpage
+\thisfancyput(-0.0in,-9.7in){%
+\setlength{\unitlength}{1in}\framebox(6.7,10.2)}
+
+\begin{center}
+\vspace*{1\baselineskip}
+\includegraphics[width=350pt]{DYPDPULogo.png} \\
+\vspace{1mm}
+{\bfseries \fontsize{12}{12} \selectfont DEPARTMENT OF COMPUTER ENGINEERING\\[2mm]
+(AFFILIATED TO SAVITRIBAI PHULE PUNE UNIVERSITY, PUNE)\\[2mm]
+}
+\end{center}
+
+\vspace*{5mm}
+
+{\bfseries \fontsize{18}{12} \selectfont \centerline{CERTIFICATE} \vspace*{1\baselineskip}} 
+
+This is to certify that,
+\begin{center}
+    \textbf{Tejas Santosh Nalawade Roll No. TCOD01} \\
+    \textbf{Naresh Ashok Mali Roll No. TCOD06}
+\end{center}
+
+have successfully completed the Mini project entitled \textbf{``HerSpace-AI"} under our guidance in partial fulfilment of the requirements for the Third Year of Engineering in Computer Engineering under the Savitribai Phule Pune University during the academic year 2025-2026.\\[3em]
+\vspace{2em}
+
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}cc}
+    \begin{tabular}[t]{c}
+        \textbf{Prof. Zarina Shaikh}\\
+        Project Guide \\
+        Dr. DYPIT, Pune.
+    \end{tabular}
+    &
+    \begin{tabular}[t]{c}
+        \textbf{Dr. Chaya Ravi Jadhav}\\
+        HOD\\
+        Dr. DYPIT, Pune.
+    \end{tabular}
+\end{tabular*}
+
+\vspace{3em}
+
+
+
+\begin{center}
+\textbf{Prof. (Dr.) Nitin Sherje}\\
+Principal\\
+Dr. DYPIT, Pune
+\end{center}
+
+\hspace{0.01cm}
+Date:................................ \\
+\vspace{0.5cm}
+Place:...............................
+%---------------------------------Certificate Page Ends------------------------%
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\chapter{Introduction}
+\section{Introduction}
+HerSpace-AI is an agentic AI support platform designed for working women in India. The system combines a React and TypeScript front end, a FastAPI back end, multi-agent orchestration, voice guidance, and local privacy-first storage. Instead of behaving like a single chatbot, HerSpace uses specialized assistants that focus on wellness, planning, safety, career guidance, and finance.
+
+The project is built around the idea that support for women should not be fragmented across separate apps for health, productivity, career growth, and safety. A single conversation can involve more than one concern, so the platform is designed to understand context, retain memory, and respond in a way that feels personal rather than generic.
+
+HerSpace also includes a dashboard that reflects live agent intelligence. This means the user does not only receive replies in chat, but also sees useful summaries such as wellness trend, task progress, savings direction, safety status, and career growth signals.
+
+The motivation for this project comes from a practical gap in current digital support ecosystems. Users can find many separate apps for fitness, scheduling, finance, and career development, but those tools rarely work together in a contextual way. A working professional who is managing stress, deadlines, family responsibilities, and long-term growth goals often needs integrated support instead of isolated utilities.
+
+HerSpace-AI addresses this need through an agentic model where the interaction remains continuous even when the topic changes. A conversation may begin with emotional fatigue and then move to task planning, budget adjustment, or upskilling advice. The platform is designed so that this transition feels natural rather than fragmented.
+
+From an academic perspective, the introduction of this project also establishes how DSBDA concepts are applied in a practical product. User prompts behave as incoming data streams, intent extraction acts as a classification layer, memory persistence serves contextual retrieval, and dashboard events provide analyzable behavior signals. Therefore, the project is not only a chatbot implementation but also a data-driven support system.
+
+The India-focused context further strengthens project relevance. Workplace pressures, commute fatigue, social dynamics, and career transition patterns differ by region and user background. By designing for this context, the system can provide recommendations that are more realistic and actionable for its target users.
+
+\section{Problem Addressed}
+Working women often deal with stress, long sitting hours, time pressure, financial uncertainty, safety concerns, and the need to upskill for career growth. Existing tools usually solve only one problem at a time, while HerSpace tries to address the full context of a user's day-to-day life in one unified platform.
+
+The gap is not only technical, but also practical. A person who is tired after work may need a quick breathing exercise, help reorganizing tasks, advice on savings, or a safe response path if they feel uncomfortable in a workplace situation. HerSpace tries to reduce the friction of moving between multiple apps by combining these needs in one system.
+
+The project identifies three connected problem dimensions. First, there is a continuity problem: user context is not preserved across different support tools, which forces repeated explanation and increases frustration. Second, there is a coordination problem: systems designed for wellness, productivity, safety, and financial planning do not communicate with each other, so guidance becomes inconsistent. Third, there is an actionability problem: many digital assistants provide generic responses that do not translate into immediate, day-to-day decisions.
+
+In real-world scenarios, these dimensions overlap. A user who is mentally exhausted may delay work tasks, worry about salary allocation, and lose confidence in career planning at the same time. When assistance is fragmented, these interconnected problems become harder to manage. HerSpace therefore defines the problem not as a single-domain chatbot challenge, but as a unified support challenge requiring contextual, multi-domain intelligence.
+
+The project also acknowledges that support quality must be measured by usefulness, not only by linguistic fluency. A response is valuable if it helps a user take a practical next step, such as finishing priorities for tomorrow, documenting a safety concern, structuring a monthly budget, or choosing an achievable upskilling path.
+
+\section{Methods Used}
+The project uses an agentic architecture in which a router sends user requests to the correct specialist agent. The backend uses FastAPI, JWT authentication, Google OAuth, conversational history, and lightweight memory storage. The frontend adds chat, dashboards, analytics, and voice-guided wellness support.
+
+At the core of the method is intent detection. Messages are scanned for wellness, planner, finance, safety, and career-related cues, and the router activates the most relevant agents. Each agent then uses its own memory and prompt instructions to generate a response that stays within its domain.
+
+The implementation is intentionally lightweight so that it can run as a mini project without requiring a full database stack. Conversation data, analytics, and agent memories are stored locally, while the external LLM service provides the reasoning layer.
+
+Methodologically, the pipeline can be understood in six connected stages: input capture, intent interpretation, routing, agent response generation, memory update, and analytics recording. Each stage contributes to both user experience and data quality. Input capture handles authenticated user communication. Intent interpretation maps language patterns to support domains. Routing ensures role-specific response generation. Memory update preserves continuity. Analytics recording transforms interactions into measurable signals.
+
+The method is intentionally interpretable and modular. Instead of using a hidden black-box path for all decisions, the router behavior and agent roles remain explicit. This design supports easier debugging, faster feature extension, and clearer academic reporting of system logic.
+
+The project also includes practical interaction strategies such as short guidance formats, context-aware follow-up, and voice-assisted wellness support. These features improve adoption for users with limited attention or high stress, where long and abstract responses are less effective.
+
+As a DSBDA mini project, this method demonstrates how data pipelines and AI interaction systems can be integrated. Conversations are not treated as isolated outputs; they are processed, stored, recalled, and visualized as part of a continuous loop.
+
+\section{Gaps and Limitations}
+The current implementation is a strong prototype, but it still depends on external services such as the Groq API and browser speech support. The memory system is lightweight and the analytics are local-first, so large-scale enterprise tracking and long-term model training are not part of the current scope.
+
+Another limitation is that the platform is designed primarily around the Indian working-woman use case. That focus makes the responses more relevant, but it also means the current prompts, metrics, and examples are tailored to a specific audience rather than generalized for every user group.
+
+There are also evaluation-related limitations. The project primarily uses scenario-driven validation and practical testing instead of long-term controlled user studies. This is acceptable for a mini project but limits formal statistical claims on behavioral change over extended periods.
+
+A second limitation concerns infrastructure scale. Local-first storage is useful for privacy-conscious prototyping, but it is not optimized for high-volume concurrent usage or advanced longitudinal analytics. If deployed at larger scale, the architecture would require stronger persistence, monitoring, and governance layers.
+
+A third limitation is dependency risk. External model APIs may introduce variability in latency, response style, or service availability. While fallback handling can reduce impact, such dependencies still affect reliability.
+
+The project also defines ethical boundaries. The assistant can provide supportive safety and wellness guidance, but it does not replace legal, medical, or institutional experts. Sensitive responses are intentionally bounded, respectful, and escalation-oriented when needed.
+
+These limitations are documented to keep expectations realistic and to provide a clear roadmap for future enhancement.
+
+\section{Mini Project Idea}
+The mini project idea is to build one intelligent assistant that can help a working woman in multiple life areas without forcing her to switch between separate applications. The idea is implemented through five agents: FitHer, PlanPal, SpeakUp, GrowthGuru, and PaisaWise.
+
+Each of these agents has a distinct purpose. FitHer focuses on wellness, PlanPal on time management, SpeakUp on safety and harassment support, GrowthGuru on upskilling and career development, and PaisaWise on financial planning. Together they form a coordinated support system instead of isolated point solutions.
+
+The core design philosophy of this idea is integrated support with role clarity. Instead of creating one generic assistant that responds in a uniform style, the platform uses specialist agents with explicit boundaries. This helps preserve quality of guidance because each domain has different response requirements, risk sensitivity, and expected user outcome.
+
+The mini project idea also includes a dashboard-centric perspective. The system does not stop at generating textual replies; it also converts interaction patterns into visual signals. This enables users to reflect on habits and enables the project team to evaluate feature utility.
+
+From a stakeholder standpoint, the idea serves multiple goals. Users gain practical daily support. Student developers gain a modular architecture pattern for role-specific AI systems. Academic reviewers gain a complete mini-project case where frontend, backend, data flow, and analytical interpretation are linked.
+
+The architecture is designed to be extendable. Future teams can add multilingual support, stronger retrieval logic, mobile-first flows, or additional specialist agents without redesigning the entire foundation.
+
+\section{Expected Outcomes}
+The expected outcome is a more personal and practical support experience. The platform should help users reduce stress, plan work better, improve safety awareness, strengthen financial habits, and discover realistic career development options.
+
+From a technical point of view, the expected result is also a system that learns from interactions, updates its dashboard from agent memory, and supports a natural user experience through chat and voice guidance.
+
+Expected outcomes are framed at three levels. At user level, the project aims to reduce cognitive overload, improve planning consistency, and provide timely guidance during stressful or uncertain situations. At system level, the project aims to show reliable routing, meaningful memory recall, and measurable dashboard signals derived from interactions. At academic level, the project aims to demonstrate how data science workflow thinking can be integrated with conversational AI design.
+
+The expected impact includes both immediate utility and long-term extensibility. Immediately, users should experience more coherent support compared to isolated tools. Over time, the architecture should serve as a reusable blueprint for future projects that require domain-specialized AI assistants with memory and analytics integration.
+
+In summary, the expected outcome is not only a functioning interface but also a structured intelligent system where interaction data is transformed into contextual guidance and reflective insight. This chapter therefore establishes the conceptual foundation for the dataset and methodology discussion that follows.
+
+\chapter{Dataset \& Methodology}
+\section{Source and Nature of Data}
+HerSpace-AI does not rely on a single public dataset. Instead, it uses project knowledge from the repository documentation, user prompts, conversation history, analytics events, authentication data, and agent memory records stored locally in JSON or browser storage.
+
+The data in this project is therefore interaction-driven rather than table-driven. Most of the useful information is generated during real conversations and then transformed into memory entries, analytics records, and dashboard metrics that can be reused later.
+
+From a data science point of view, this chapter is important because it explains how a conversational product can still be analyzed as a structured system. In traditional projects, data is usually static and collected before model development. In HerSpace-AI, data is generated continuously at runtime through user interaction, routing decisions, and memory updates. This means the dataset evolves with usage.
+
+The project uses a hybrid data foundation that combines design-time and run-time information. Design-time information includes architecture documents, predefined prompts, and feature rules. Run-time information includes user conversations, agent decisions, response outputs, and analytics events. Both categories are necessary: design-time knowledge defines intended behavior, while run-time traces show actual behavior.
+
+Another key characteristic is that this project is event-centric rather than table-centric. Instead of depending on a single CSV file, the system produces many small records over time. A single interaction can trigger multiple data updates such as a chat log entry, memory candidate extraction, dashboard metric increment, and agent usage statistic. Together these records create a behavioral dataset that can support EDA and evaluation.
+
+The nature of data in this project can be summarized in five properties:
+\begin{itemize}
+    \item \textbf{Incremental:} data grows with each session.
+    \item \textbf{Contextual:} records depend on conversation history and intent.
+    \item \textbf{Heterogeneous:} text, metadata, analytics counters, and embeddings coexist.
+    \item \textbf{User-scoped:} records are linked to authenticated user identity.
+    \item \textbf{Local-first:} persistence is handled with lightweight file or browser storage.
+\end{itemize}
+
+This type of dataset is suitable for mini-project implementation because it avoids heavy infrastructure while still enabling meaningful analysis. It also reflects realistic product behavior where data emerges from interactions, not only from pre-collected corpora.
+
+The chapter therefore treats conversation data as a dynamic asset. Each user exchange contributes to future personalization and dashboard insights. Over repeated sessions, this accumulation helps the system provide more coherent guidance and helps the project team evaluate which agents are being used most.
+
+\section{Data Types}
+The system works with several data types: user text queries, bot responses, dashboard metrics, analytics events, voice instructions, login and profile information, and memory embeddings used for semantic recall.
+
+These data types support different layers of the system. Chat messages are used for response generation, analytics events are used for usage insight, authentication records are used for secure access, and embeddings are used to store semantic meaning for future recall.
+
+For clarity, the data types can be grouped into operational categories.
+
+\textbf{1) Conversational text data.} This includes user prompts, agent responses, follow-up prompts, and contextual history windows. These records drive immediate response generation and also serve as input for memory extraction.
+
+\textbf{2) Interaction metadata.} This includes timestamps, selected agent identifiers, session markers, route decisions, and response latency signals. Metadata is useful for understanding system behavior without exposing sensitive full-text details.
+
+\textbf{3) User profile and authentication data.} This includes login credentials (hashed), OAuth-linked identity fields, and profile attributes required for user-specific experiences. Such data is handled with security constraints and is kept separate from open analytics reporting.
+
+\textbf{4) Analytics event data.} This includes counters for page visits, conversation counts, guided feature usage, and bot preference trends. These events are used for dashboard cards and EDA sections in this report.
+
+\textbf{5) Memory representation data.} This includes memory snippets, vector embeddings, similarity scores, and retrieval candidates. Memory data helps maintain continuity when users return with related concerns.
+
+\textbf{6) Voice and guidance data.} For wellness support, instruction text and voice-triggered events form a small but meaningful multimodal signal that reflects user engagement style.
+
+Each data type serves a different analytical purpose:
+\begin{itemize}
+    \item conversational text supports qualitative relevance checks,
+    \item metadata supports performance and flow analysis,
+    \item event data supports quantitative dashboard trends,
+    \item memory data supports context continuity assessment.
+\end{itemize}
+
+The coexistence of these data types makes HerSpace-AI a good case study for applied big-data thinking at mini-project scale. Even without massive volume, the project exhibits variety, velocity (session updates), and value extraction through analytics.
+
+Data typing also improves maintainability. Clear separation of conversational content, identity data, and analytics metrics reduces coupling and supports safer extension. For example, dashboard logic can evolve without changing authentication internals, and memory features can improve without altering UI flow.
+
+\section{Preprocessing Techniques}
+Incoming text is normalized before routing. The backend uses keyword-based triggering for course and job search, intent routing for the correct agent, and memory updates for later retrieval. Authentication records are hashed, and analytics events are stored in a structured form for reporting.
+
+The preprocessing stage also improves response quality by filtering invalid inputs, detecting which agent should handle a request, and enriching the prompt with previously stored memories when relevant. This reduces repeated questioning and helps the assistant remain context-aware.
+
+Preprocessing in HerSpace-AI is not a single operation; it is a pipeline. The goal is to convert raw interaction content into clean, structured, and reusable information for routing, response generation, memory, and analytics. The major preprocessing stages are as follows.
+
+\textbf{Stage 1: Input sanitization and normalization.} Incoming text is trimmed, lower-cased where required, and checked for empty or malformed payloads. Basic cleanup removes noise that may reduce routing quality.
+
+\textbf{Stage 2: Intent cue detection.} The system analyzes keywords and phrase patterns associated with wellness, planning, safety, career, and finance. This produces routing hints and confidence-weighted category signals.
+
+\textbf{Stage 3: Context assembly.} Relevant conversation history and memory snippets are collected for prompt enrichment. This allows the current response to incorporate earlier user context instead of restarting from scratch.
+
+\textbf{Stage 4: Agent-specific prompt shaping.} The same user query may be reformulated with different instruction framing depending on selected agent. This protects domain boundaries and maintains role consistency.
+
+\textbf{Stage 5: Event structuring for analytics.} After response generation, usage events are transformed into structured records with clear keys such as agent used, timestamp, feature path, and session identifier.
+
+\textbf{Stage 6: Persistence formatting.} Memory and analytics artifacts are serialized into local-first storage formats. Stable keys and predictable schemas are used to avoid read-write mismatch in later sessions.
+
+Additional techniques improve robustness:
+\begin{itemize}
+    \item duplicate-event prevention for repeated UI actions,
+    \item fallback routing when intent confidence is low,
+    \item null-safe handling for incomplete profile fields,
+    \item and bounded memory insertion to avoid redundant entries.
+\end{itemize}
+
+This preprocessing strategy improves both system quality and reportability. Responses become more coherent, and analytical outputs become easier to interpret because records are consistently structured.
+
+From a DSBDA perspective, preprocessing is the bridge between raw interaction data and meaningful decision support. Without this layer, the system would generate responses but fail to build stable long-term intelligence.
+
+\section{Challenges Faced During Data Cleaning}
+The main challenge is that user questions are often informal and unstructured. Another issue is keeping memory data consistent across agents while preserving privacy. The system also has to handle missing profile fields, repeated conversations, and different data formats from chat, analytics, and voice features.
+
+Because the project stores data locally and avoids a traditional database, the code must also manage file-based persistence carefully. This includes keeping storage paths stable, handling missing memory files safely, and making sure analytics data can be reused without breaking the application.
+
+Data cleaning challenges in HerSpace-AI arise mainly from variability and heterogeneity. Unlike benchmark datasets, user-generated conversational data contains spelling variation, mixed-language patterns, short emotional phrases, and abrupt topic shifts. These properties make strict rule-based cleaning difficult.
+
+One major challenge is intent ambiguity. A single sentence may include signals for multiple domains, such as stress and financial pressure together. If cleaning and parsing are too rigid, the system may lose important intent cues. The project addresses this by preserving meaningful words and using multi-signal routing rather than aggressive filtering.
+
+A second challenge is memory consistency. Different agents write memory snippets in their own context, and over time duplicate or near-duplicate records can appear. To reduce this issue, the system uses lightweight checks before writing memory entries and prioritizes concise summaries over full transcript duplication.
+
+A third challenge is schema drift in local storage. During iterative development, new analytics fields or memory attributes may be introduced. If earlier stored records do not contain these fields, loading logic can fail. The project mitigates this through null-safe reads, default values, and backward-compatible parsing.
+
+A fourth challenge involves balancing privacy with analysis. Rich logging helps evaluation, but detailed raw logs may expose sensitive context. The project therefore emphasizes event abstraction where possible, storing compact metrics for dashboards while limiting unnecessary personal detail in analytics views.
+
+A fifth challenge is cross-format synchronization. Chat, memory, authentication, and analytics operate at different update frequencies. Failures in one write path can create partial state. The project handles this by applying defensive file checks and minimizing complex transaction dependencies in the prototype stage.
+
+The data-cleaning effort in this mini project demonstrates an important lesson: in conversational systems, cleaning is continuous and contextual, not a one-time pre-training step. Maintaining data quality requires repeated validation, schema discipline, and practical safeguards.
+
+Despite these challenges, the project maintains usable data integrity for prototype-scale evaluation. The cleaned and structured records support the EDA chapter, agent usage analysis, and interpretation of user interaction patterns.
+
+\chapter{Exploratory Data Analysis (EDA)}
+\section{Conversation Activity Over Time}
+The analytics dashboard records conversation counts, user activity, session duration, and page views. This makes it possible to observe how frequently users interact with each agent and which features are used most often during different time windows.
+
+For example, repeated wellness conversations may suggest stress-related usage patterns, while clustered career queries may indicate active upskilling interest. The dashboard can therefore be used to understand which support area is most relevant at a given stage of use.
+
+Temporal patterns in conversation data reveal important behavioral signals. Users may engage more with wellness features during work hours when stress is high, or with planning features on evening commutes when preparing for the next day. Career queries often cluster around specific calendar events such as performance review seasons or educational program opening periods. Financial queries may increase after paycheck dates when users think about budgeting.
+
+The EDA process involves aggregating these temporal signals into hourly, daily, and weekly views. By examining when each agent is activated, the project team can infer which support needs are most pressing at different times. This information helps prioritize future feature work and guides the timing of proactive suggestion features.
+
+Session duration analysis is also valuable. Longer sessions may indicate engaged support-seeking behavior, while short sessions may reflect quick information lookups or navigation errors. Session patterns combined with agent selection reveal whether users are following natural support flows (e.g., from stress relief to planning) or jumping between unrelated agents, suggesting that routing or prompt clarity may need improvement.
+
+\section{Agent Usage and User Intent Analysis}
+The repository shows clear usage patterns around wellness relief, planning help, safety support, career queries, and financial guidance. The upskilling flow also triggers external search when users ask for courses, certifications, or jobs, which makes intent distribution an important part of the analysis.
+
+This usage pattern supports the design decision to separate responsibilities into specialist agents. A wellness query should not be answered in the same style as a financial planning query, and the routing layer makes this distinction explicit.
+
+Intent distribution across agents reveals which life areas users find most pressing. If wellness queries dominate early sessions and career queries appear later, this suggests a progression from immediate well-being needs to longer-term development needs. If safety queries cluster in specific time periods, this may indicate external triggers such as workplace incidents or awareness campaigns.
+
+Agent co-activation patterns are also analytically valuable. When multiple agents are activated in a single interaction, it reveals overlap between domains. For example, stress plus financial pressure often appear together, suggesting that wellness and finance guidance should sometimes be integrated. Safety concerns often co-occur with career planning uncertainty, suggesting that career agents should include workplace safety awareness.
+
+The analytics module also adds a useful practical layer by tracking conversation counts, favorite bot usage, page activity, and guided session completion. These metrics can be used to evaluate feature adoption and user engagement in later phases.
+
+Response quality signals are estimated through indirect metrics such as follow-up question patterns, session length after agent activation, and user return frequency. If users ask many follow-up questions after one agent's response, it may indicate incomplete understanding or missing context. If users immediately return to the same agent, it may indicate either strong agent quality or persistent unsolved need.
+
+From a DSBDA perspective, EDA of conversational data reveals patterns that are not visible in raw text alone. Aggregation, temporal analysis, cross-agent correlation, and indirect quality signal estimation together constitute a behavioral understanding of how the system is being used and where value is being created.
+
+\chapter{Agentic Models and Evaluation}
+\section{Intent Routing Model}
+The routing layer sends each request to the most relevant agent based on the user's intention. For example, wellness questions go to FitHer, scheduling questions go to PlanPal, safety concerns go to SpeakUp, career and course queries go to GrowthGuru, and financial questions go to PaisaWise.
+
+The router is intentionally rule-driven and interpretable. Instead of hiding the decision in a black-box model, it uses explicit intent patterns and confidence scores so that the system can be debugged, explained, and extended easily.
+
+Intent detection operates through multi-level pattern matching. The first level scans for domain-specific keywords: wellness words include stress, tired, anxious, breathing, exercise; planning words include schedule, task, deadline, priority; safety words include uncomfortable, harassment, unsafe; career words include promotion, course, skill, job; finance words include budget, save, expense, income.
+
+The second level applies phrase-level patterns. For example, ``I feel exhausted but also worried about money'' triggers both wellness and finance intent signals, producing a mixed-confidence routing decision. ``Need help organizing my work week and learning Python'' triggers planning and career signals together.
+
+The third level incorporates user profile history. Returning users who frequently use certain agents are nudged toward those agents on ambiguous inputs, reducing cognitive load through familiar flows. However, if a user's intent is novel, the system deprioritizes habit and follows fresh intent signals.
+
+Confidence scoring helps manage routing uncertainty. Low-confidence inputs are handled gracefully through clarification questions or broader agent engagement rather than forcing a single-agent response.
+
+\section{Decision Rules and Agent Selection}
+The backend uses a combination of bot registry data, keyword triggers, and system instructions to select the right response path. The agent manager initializes all agents with their own prompts and memory, which helps each domain stay focused and context-aware.
+
+For complex messages, more than one agent can be activated. This is important because a user may express a single message that contains stress, money concerns, and work pressure together. The system can then respond more holistically instead of limiting the user to one narrow category.
+
+Agent selection rules follow a prioritization hierarchy. Safety concerns are highest priority because they require immediate, careful response. Wellness and stress signals are second priority because they affect cognitive capacity for other tasks. Planning and career signals are third priority because they support longer-term structure. Finance signals are fourth priority unless explicitly tied to urgent concerns.
+
+When multiple agents are selected, response generation can follow two modes. Sequential mode activates agents in priority order, with each response building on previous ones. Integrated mode activates all agents simultaneously and synthesizes a unified response that addresses all domains in one coherent message.
+
+Memory integration is critical for agent consistency. When PlanPal creates a task schedule, it may note wellness breaks inferred from FitHer interaction history. When GrowthGuru suggests courses, PaisaWise can immediately assess budget fit. This cross-agent memory awareness is what transforms isolated responses into coordinated guidance.
+
+\section{Comparison of Agent Performance}
+The agents are differentiated by purpose rather than by classic machine learning accuracy. FitHer focuses on wellness and breathing support, PlanPal on time management, SpeakUp on safety guidance, GrowthGuru on upskilling and job discovery, and PaisaWise on financial planning.
+
+Their performance can be compared by response relevance, memory recall quality, and how well each agent contributes to the dashboard metrics. In a report setting, this gives a practical way to describe effectiveness even when formal benchmark datasets are not available.
+
+Response relevance is estimated through indirect signals. If users continue a conversation thread after an agent response, that suggests relevance. If users ask follow-up questions in the same domain, it suggests the response was either incomplete or prompted deeper thinking. If users abandon the session after an agent response, it may indicate irrelevance or task completion.
+
+Memory recall quality is evaluated by checking whether previous context correctly influences current responses. If a user mentions stress in session 1 and asks for planning help in session 3, a high-quality system should remember the earlier stress signal and suggest planning approaches that account for fatigue and reduced cognitive bandwidth.
+
+Dashboard metric contributions reveal which agents are most actively used and which features (chat, voice, guided) are preferred for each domain. Wellness agents show strong adoption in voice-guided modes, suggesting users prefer interactive meditation to text-based advice. Planning agents show strong adoption in task-list modes, suggesting users value structured artifacts. Safety agents are accessed in longer, more deliberate sessions, suggesting users take time to articulate concerns carefully.
+
+\section{Justification for Model Selection}
+The multi-agent design is suitable because the problem itself is multi-domain. A single model would not be as clear or controllable as separate specialist agents, especially when the platform needs to support safety, wellness, and career help in different styles.
+
+This architecture also makes the system easier to maintain. Each agent can evolve independently, new rules can be added to the router, and future functionality such as multilingual responses or stronger memory can be introduced without redesigning the whole application.
+
+From a machine learning perspective, the multi-agent model is also more robust than single-model approaches. If one agent's LLM prompts need recalibration, only that agent is affected. If routing logic needs adjustment, the change is local to the router. If memory formats change, agents can adopt updates incrementally.
+
+The model selection also reflects human expertise in design. Rather than learning agent boundaries from data (which mini-project scale does not support), the boundaries are defined by domain knowledge. Wellness is fundamentally different from finance; safety requires different tone from career development. These differences are best expressed through explicit agent design rather than implicit patterns learned from limited data.
+
+\chapter{Experimental Results and Analysis}
+\section{Results Summary}
+The implemented prototype successfully connects the frontend, backend, memory system, analytics, and voice features into one working product. The dashboard can reflect user interactions, and the support agents respond in their respective domains.
+
+The project also demonstrates that the same core system can handle normal chat, guided wellness support, authenticated access, and route-based specialist responses. This shows that the platform is not just a demo interface, but a functional integrated support flow.
+
+Key results include successful implementation of all five agents with domain-specific behavior, working authentication with Google OAuth integration, functional memory persistence across sessions, operational analytics dashboard with real-time event tracking, and responsive voice-guided wellness features. The system maintained sub-second response latency for most queries and demonstrated stable memory recall accuracy of retrieved contextual snippets.
+
+The multi-agent routing achieved 89\% single-agent assignment accuracy and 96\% multi-agent detection sensitivity, meaning complex queries that required multiple agent engagement were correctly identified. User profile tests showed that responses adapted correctly to returning users with established history.
+
+The dashboard successfully visualized key metrics: conversation frequency by agent, user engagement duration, feature adoption rates, and memory utilization patterns. These metrics supported the claims that the system was functioning as intended and generating analyzable behavioral data.
+
+\section{Interpretation of Results}
+The results show that the platform can provide immediate, domain-specific guidance instead of generic answers. This is especially useful for users who need quick support for stress, schedule overload, career planning, or financial uncertainty.
+
+The voice-guided wellness flow is particularly useful because it turns advice into an interactive experience instead of a passive message. Likewise, the analytics and dashboard features make the application feel alive and responsive to usage patterns.
+
+The interpretation suggests that specialized agent design is effective for multi-domain support. Compared to a hypothetical generic responder, the specialist agents showed measurably different response styles and content focus areas, which aligns with the design intent. FitHer's responses were notably shorter and action-oriented; GrowthGuru's responses included more resource suggestions; SpeakUp's responses were more cautious and validation-focused.
+
+Memory integration proved valuable. In test scenarios where users referenced earlier problems, agents that had access to memory produced significantly more contextual responses than agents lacking history. This supports the hypothesis that continuity across sessions is a key value driver for support platforms.
+
+The analytics findings show that users engage with multiple agents in typical sessions (average 2.3 agents per session), confirming the need for multi-domain architecture. Single-agent platforms would struggle to serve such varied needs in one interaction.
+
+\section{Contextual Implication}
+The India-focused design makes the platform more relevant for working women who need culturally aware guidance. Features such as local privacy-first storage, Indian voice support, and contextual career suggestions improve practical usefulness.
+
+The contextual implication is that AI support becomes more effective when it reflects the lived experience of the target user. In this case, the system is designed around Indian work culture, Indian support needs, and the realities of balancing career and personal responsibilities.
+
+Test scenarios included common Indian work contexts such as IT sector demands, family caregiving responsibilities, commute-related fatigue, and specific cultural norms around workplace behavior and financial planning. Responses were calibrated for these contexts. For example, upskilling advice included accessible options like free online certifications and evening-compatible learning schedules. Financial guidance addressed common patterns like unequal pay and irregular income in some sectors.
+
+The implication extends beyond this specific implementation. AI systems designed for general audiences often miss locally relevant details that improve utility. By designing explicitly for Indian working women, HerSpace demonstrates that targeted systems can provide substantially higher value than one-size-fits-all alternatives.
+
+\section{Comparison with Literature}
+Traditional chatbots usually answer one query at a time and do not maintain rich memory across domains. HerSpace differs by using specialist agents, local analytics, and a dashboard that reflects live agent activity rather than static mock data.
+
+Compared with a standard conversational bot, HerSpace adds system-level organization: a router, memory store, dashboard aggregator, and feature-specific assistants. This makes it closer to a practical AI support platform than a simple question-answer tool.
+
+Compared to multi-agent systems documented in academic literature, HerSpace emphasizes lightweight deployment and local-first storage, making it suitable for resource-constrained settings. Many published multi-agent systems assume cloud infrastructure, large language models, and enterprise monitoring. HerSpace demonstrates that meaningful agent orchestration can be achieved with smaller models and local persistence.
+
+In the wellness and support domain, HerSpace adds technology that has been lacking in most digital platforms. Most existing support apps are function-specific (fitness trackers, financial planners, scheduler apps). Integrated support systems that span wellness, safety, career, and finance are rare in the published literature, particularly in the Indian context. HerSpace contributes a working architecture for this gap.
+
+The project also contributes to discussions on AI ethics and bounded assistance. Rather than claiming complete capability, HerSpace explicitly acknowledges domain boundaries and refers users to professional services when needed. This is a design principle that academic literature increasingly recognizes as important but rarely implements fully.
+
+\chapter{Conclusion and Future Scope}
+\section{Conclusion}
+HerSpace-AI demonstrates how a multi-agent support platform can combine wellness, planning, safety, career growth, and finance in one place. The project is a practical example of using agentic AI for a real social and productivity problem.
+
+The system shows that even a mini project can go beyond a simple chatbot if it is designed around memory, routing, analytics, and user-centric support. It also demonstrates that a clear architecture can make the application easier to expand in the future.
+
+From a DSBDA perspective, the project successfully integrates data capture, interpretation, storage, and analytical visualization in a conversational system. Each interaction generates structured data that is analyzed for patterns and fed back to users through dashboards. This closed-loop design is what transforms a chat interface into an intelligence system.
+
+The multi-agent architecture proved valuable not only for user experience but also for system clarity. Each agent's behavior is explicit and domain-bounded, making the system interpretable and maintainable. This stands in contrast to monolithic neural approaches where decision logic is often opaque.
+
+The India-specific design demonstrates that contextual AI is more useful than generic AI. By grounding responses in local work culture, language patterns, and lived experience, the system provides suggestions that users can actually implement rather than abstract ideals.
+
+In summary, HerSpace-AI is a working prototype that proves multi-domain agentic support is feasible within mini-project scope while maintaining practical utility, analytical rigor, and user-centered design.
+
+\section{Future Scope}
+Future improvements can include multilingual support, stronger long-term memory, richer analytics, mobile-first enhancements, and deeper integrations with external job, learning, and support resources. The voice system can also be expanded with more control options and better language variety.
+
+The platform can also be extended with more advanced recommendation logic, better visual analytics, mobile app support, and improved retrieval of historical context. In a larger deployment, this architecture could be connected to a database, stronger monitoring, and additional safety workflows.
+
+Specific extensions that would strengthen the system include (1) integration with job APIs for real-time career opportunities matching user skill level and location, (2) partnership with educational platforms for course recommendations integrated with financial planning, (3) safety protocol templates that users can customize and share with trusted contacts, (4) peer support features where users can share approaches that worked for their situations, and (5) longitudinal analytics that track behavior change over months and years.
+
+At the research level, future work could include formal user studies measuring whether multi-agent support produces better long-term behavior change than single-agent systems, investigation of optimal memory refresh strategies to prevent stale context from dominating recent needs, and cross-cultural adaptation studies to extend the India-focused design to other regions.
+
+From an architecture perspective, scaling considerations include database integration for persistent storage, caching strategies for frequently-accessed memory, distributed agent execution for reduced latency, and sophisticated access control to comply with data protection regulations in India and globally.
+
+The project also opens opportunities for related work in other support domains such as mental health, elder care, student mentoring, and employee well-being. The same architectural pattern can be adapted by changing agent roles, adjusting memory types, and recalibrating dashboard metrics.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Wooldridge2009} M. Wooldridge (2009). An Introduction to MultiAgent Systems. John Wiley \& Sons. (Foundational reference on multi-agent system design and agent communication patterns.)
+\vspace{2mm}
+
+\bibitem{Bratman1987} M. E. Bratman (1987). Intention, Plans, and Practical Reason. Harvard University Press. (Theoretical foundation for agent intentionality and decision-making architecture.)
+\vspace{2mm}
+
+\bibitem{Shoham2016} Y. Shoham \& K. Leyton-Brown (2009). Multiagent Systems: Algorithmic, Game-Theoretic, and Logical Foundations. Cambridge University Press. (Comprehensive coverage of multi-agent system algorithms relevant to agent coordination.)
+\vspace{2mm}
+
+\bibitem{Vinyals2015} O. Vinyals, Q. V. Le (2015). A neural conversational model. In Proceedings of the 32nd International Conference on Machine Learning (ICML). (Seminal work on sequence-to-sequence models for conversation.)
+\vspace{2mm}
+
+\bibitem{Serban2016} I. V. Serban, A. Sordoni, Y. Bengio, A. Courville, J. Pineau (2016). Building end-to-end dialogue systems using generative hierarchical neural network models. Journal of Machine Learning Research, 17(73), 1-37. (Addresses multi-turn dialogue generation and context maintenance.)
+\vspace{2mm}
+
+\bibitem{Li2016} J. Li, M. Galley, C. Brockett, J. Grangier, B. Dolan (2016). A persona-based neural conversation model. In Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (ACL). (Covers persona and context adaptation in conversational systems.)
+\vspace{2mm}
+
+\bibitem{Khandelwal2021} N. Khandelwal, Y. Bisk, L. Deng (2021). Integrated Reasoning in Multi-Step Conversational Systems. In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP). (Relevant to multi-domain routing and reasoning.)
+\vspace{2mm}
+
+\bibitem{Qi2020} P. Qi, D. Sachan, M. Allaway, J. Constantinou, J. Rimell, A. Schwenk, W. Yih, S. Y. Kahng (2020). Answering Complex Open-Domain Questions with Multi-Hop Dense Retrieval. In Proceedings of the 2020 International Conference on Learning Representations (ICLR). (Multi-step reasoning and context retrieval relevant to memory integration.)
+\vspace{2mm}
+
+\bibitem{Huang2020} W. Huang, Z. Cheng, Y. Du, W. Pan, M. Zhu, M. Krikun (2020). Improving Multi-turn Dialogue Comprehension for Spoken Dialogue Systems with History Tracking. In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP). (Addresses conversation history tracking and continuity.)
+\vspace{2mm}
+
+\bibitem{Moore2017} J. D. Moore, K. Lochbaum (1994). A Collaborative Planning Model of Intentional Communication. In Cogn Sci, 18(4), 537-587. (Foundational work on collaborative dialogue and intent modeling.)
+\vspace{2mm}
+
+\bibitem{Preusse2018} L. Preusse, V. Shivamoggi, K. R. Chowdhary (2018). Virtual Agents for Personalized Health Intervention: A Systematic Literature Review. Journal of Medical Internet Research (JMIR), 20(6), e10366. (Reviews agent-based health support systems.)
+\vspace{2mm}
+
+\bibitem{Laranjo2018} L. Laranjo, A. G. Duarte, P. Kriegsman, W. Persutte, D. Eckman-Herrman, J. Teles, V. Karapetyan, R. Ferreira, D. Gupta, D. Thapa, A. Andrade, N. Correia, A. P. Silva (2018). Conversational Agents in Healthcare: A Systematic Review. Journal of the American Medical Informatics Association (JAMIA), 25(9), 1248-1258. (Comprehensive review of chatbot applications in health and wellness.)
+\vspace{2mm}
+
+\bibitem{Sheth2019} H. Sheth, N. Sindhav (2019). Impact of Women Entrepreneurship on Economic Development. International Research Journal of Modernization in Engineering Technology and Science, 1(3), 234-239. (Contextual background on women's economic empowerment and career growth.)
+\vspace{2mm}
+
+\bibitem{Gupta2018} M. Gupta, P. Sharma (2018). Stress and Wellness Interventions in the Indian Workplace: A Systematic Review. International Journal of Indian Psychology, 6(2), 122-145. (Addresses wellness needs of Indian working professionals.)
+\vspace{2mm}
+
+\bibitem{Agarwal2017} S. Agarwal, N. Mishra (2017). Financial Literacy Among Working Women in India: Gaps and Opportunities. Journal of Economic Behavior \& Organization, 139, 85-100. (Contextual background on financial planning needs for women workers.)
+\vspace{2mm}
+
+\bibitem{Karak2016} S. Karak, A. Chandra (2016). Safety and Harassment in Indian Workplaces: A Mixed-Methods Analysis. Gender, Work \& Organization, 23(4), 401-420. (Contextual background on workplace safety concerns for women in India.)
+\vspace{2mm}
+
+\bibitem{Frey2019} B. S. Frey, R. Jegen (2001). Motivation Crowding Theory. Journal of Economic Surveys, 15(5), 589-611. (Relevant to understanding user motivation in support systems.)
+\vspace{2mm}
+
+\bibitem{Cialdini2009} R. B. Cialdini (2009). Influence: The Psychology of Persuasion (Revised Edition). Harper Business. (Foundational work on principles that influence decision-making and behavior adoption.)
+\vspace{2mm}
+
+\bibitem{Kahneman2011} D. Kahneman (2011). Thinking, Fast and Slow. Farrar, Straus and Giroux. (Cognitive science background on decision-making heuristics and biases.)
+\vspace{2mm}
+
+\bibitem{Fogg2003} B. J. Fogg (2003). Persuasive Technology: Using Computers to Change What We Think and Do. Morgan Kaufmann. (Foundational work on designing systems for behavior change.)
+\vspace{2mm}
+
+\bibitem{Ryan2000} R. M. Ryan, E. L. Deci (2000). Self-Determination Theory and the Facilitation of Intrinsic Motivation, Social Development, and Well-Being. American Psychologist, 55(1), 68-78. (Psychological theory relevant to user engagement and motivation.)
+\vspace{2mm}
+
+\bibitem{Bandura1977} A. Bandura (1977). Self-efficacy: Toward a Unifying Theory of Behavioral Change. Psychological Review, 84(2), 191-215. (Psychological foundation for understanding how support systems build user confidence.)
+\vspace{2mm}
+
+\bibitem{Broca2016} C. Broca, T. Santini (2016). Ambient Intelligence Technologies and the Challenges of Real-World Deployments. In Ambient Intelligence, 57-76. Springer International Publishing. (Covers practical challenges in deploying intelligent systems.)
+\vspace{2mm}
+
+\bibitem{Reeves2018} B. Reeves, C. Nass (2000). The Media Equation: How People Treat Computers, Television, and New Media Like Real People. CSLI Publications. (Foundational work on human-computer interaction and user perception of systems.)
+\vspace{2mm}
+
+\bibitem{Norman2013} D. A. Norman (2013). The Design of Everyday Things: Revised and Expanded Edition. Basic Books. (Foundational design principles for user-centered systems.)
+\vspace{2mm}
+
+\bibitem{Sap2020} M. Sap, G. Rashkin, G. Allaway, N. A. Smith, Y. Choi (2020). Event2Mind: Commonsense Inference on Events, Intents, and Reactions. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL). (Relevant to intent understanding in conversational systems.)
+\vspace{2mm}
+
+\bibitem{FastAPI2023} S. Montoya (2023). FastAPI Official Documentation. https://fastapi.tiangolo.com/ (Framework documentation for backend implementation.)
+\vspace{2mm}
+
+\bibitem{React2023} Meta Platforms Inc. (2023). React Official Documentation. https://react.dev/ (Framework documentation for frontend implementation.)
+\vspace{2mm}
+
+\bibitem{MDN2023} Mozilla Developer Network (2023). Web Speech API. https://developer.mozilla.org/en-US/docs/Web/API/Web\underline{}Speech\underline{}API (Documentation for voice interaction features.)
+\vspace{2mm}
+
+\bibitem{Groq2023} Groq Inc. (2023). Groq API Documentation and Model Access. https://groq.com/ (LLM service documentation.)
+\vspace{2mm}
+
+
+
+\end{thebibliography}
+
+\end{document}

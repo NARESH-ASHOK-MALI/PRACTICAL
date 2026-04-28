@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 # Dummy user data (can be replaced with database)
-users = {"naresh": "1234"}
+users = {"test": "1234"}
 
 def login():
     username = entry_username.get()

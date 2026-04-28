@@ -48,7 +48,7 @@ public class BankersAlgorithm {
         System.out.print("Enter number of resources: ");
         int numResources = scanner.nextInt();
 
-        // Array Dewcalreation
+        // Array Declaration
         int[][] allocation = new int[numProcesses][numResources];
         int[][] max = new int[numProcesses][numResources];
         int[][] need = new int[numProcesses][numResources];

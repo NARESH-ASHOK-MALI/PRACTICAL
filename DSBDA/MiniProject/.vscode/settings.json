@@ -1,0 +1,22 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdflatex (absolute)",
+      "tools": [
+        "pdflatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex",
+      "command": "C:/Users/Naresh/AppData/Local/Programs/MiKTeX/miktex/bin/x64/pdflatex.exe",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOCFILE%"
+      ]
+    }
+  ]
+}

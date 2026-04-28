@@ -1,12 +1,12 @@
 from tkinter import*
 top = Tk()
-top.title("Naresh")
+top.title("Label Widget")
 top.geometry("200x200")
 top.config(bg="black")
-w= Label(top,text='Naresh Ashok Mali')
+w= Label(top,text='Hello World!',bg="black",fg="white",font=("Arial",12,"bold"))
 
 # Label
-w = Label(top, text='Naresh Ashok Mali', bg="black", fg="white", font=("Arial", 12, "bold"))
+w = Label(top, text='Hello World!', bg="black", fg="white", font=("Arial", 12, "bold"))
 w.pack(pady=30)
 
 # Button
